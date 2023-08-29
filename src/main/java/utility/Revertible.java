@@ -2,17 +2,18 @@ package utility;
 
 import java.util.ArrayDeque;
 import java.util.HashSet;
+import java.util.function.Supplier;
 
 public class Revertible<T> {
-    private final T defaultState;
+    private final Supplier<T> defaultStateSupplier;
     private T current;
     private final ArrayDeque<T> history = new ArrayDeque<>();
     private final HashSet<T> uniquenessValidator = new HashSet<>();
 
 
-    public Revertible(T current) {
-        this.current = current;
-        defaultState = current;
+    public Revertible(Supplier<T> defaultStateSupplier) {
+        this.defaultStateSupplier = defaultStateSupplier;
+        this.current = this.defaultStateSupplier.get();
         uniquenessValidator.add(current);
     }
 
@@ -37,10 +38,10 @@ public class Revertible<T> {
     }
 
     public void reset(){
-        current = defaultState;
+        current = defaultStateSupplier.get();
         history.clear();
         uniquenessValidator.clear();
-        uniquenessValidator.add(defaultState);
+        uniquenessValidator.add(current);
     }
 
 
