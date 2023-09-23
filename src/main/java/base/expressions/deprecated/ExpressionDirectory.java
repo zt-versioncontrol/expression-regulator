@@ -1,8 +1,9 @@
-package base.expressions;
+package base.expressions.deprecated;
 
 import utility.ReusableIterator;
 import utility.Revertible;
 
+@Deprecated
 public class ExpressionDirectory {
 
     private static class DirectoryState {

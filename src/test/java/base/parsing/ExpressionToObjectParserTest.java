@@ -1,6 +1,6 @@
 package base.parsing;
 
-import org.junit.jupiter.api.BeforeEach;
+import base.expressions.Expression;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -16,24 +16,22 @@ class ExpressionToObjectParserTest {
     @Test
     void simpleFields() throws Exception{
 
-        SampleObject sampleObject = new SampleObject();
-        parser.parse(sampleObject, "123456");
+        SimpleObject simpleObject = new SimpleObject();
+        parser.parse(simpleObject, "123456");
 
-        assertEquals("23456", sampleObject.s);
-        assertEquals(2, sampleObject.ss.size());
-        assertEquals("23456", sampleObject.ss.get(0));
-        assertEquals("3456", sampleObject.ss.get(1));
+        assertEquals("23456", simpleObject.s);
+        assertEquals(2, simpleObject.ss.size());
+        assertEquals("23456", simpleObject.ss.get(0));
+        assertEquals("3456", simpleObject.ss.get(1));
 
-        assertEquals("23456", sampleObject.s2);
-        assertEquals(2, sampleObject.ss2.size());
-        assertEquals("23456", sampleObject.ss2.get(0));
-        assertEquals("3456", sampleObject.ss2.get(1));
+        assertEquals("23456", simpleObject.s2);
+        assertEquals(2, simpleObject.ss2.size());
+        assertEquals("23456", simpleObject.ss2.get(0));
+        assertEquals("3456", simpleObject.ss2.get(1));
     }
 
     @Test
     void nestedFields()throws Exception{
-
-
         ComplexObject complexObject = new ComplexObject();
         parser.parse(complexObject, "123456");
 
@@ -41,7 +39,25 @@ class ExpressionToObjectParserTest {
         assertEquals(2, complexObject.nested.ss.size());
         assertEquals("3456", complexObject.nested.ss.get(0));
         assertEquals("456", complexObject.nested.ss.get(1));
+    }
 
+    @Test
+    void ExpressionTree() throws Exception{
+        Expression rootExpression = new Expression(null, "123456", null);
+        Expression level1Expression = new Expression(rootExpression, "23456", DummyExtractor.class.getTypeName());
+        rootExpression.addDerivedExpression(level1Expression);
+        Expression level2Expression1 = new Expression(level1Expression, "3456", DummyExtractor.class.getTypeName());
+        Expression level2Expression2 = new Expression(level1Expression, "3456", DummyArrayExtractor.class.getTypeName());;
+        Expression level2Expression3 = new Expression(level1Expression, "456", DummyArrayExtractor.class.getTypeName());;
+        level1Expression.addDerivedExpression(level2Expression1);
+        level1Expression.addDerivedExpression(level2Expression2);
+        level1Expression.addDerivedExpression(level2Expression3);
+
+        ComplexObject complexObject = new ComplexObject();
+        Expression computedRootExpression = parser.parse(complexObject, "123456");
+
+       // rootExpression.equals(computedRootExpression);
+        assertEquals(rootExpression, computedRootExpression);
     }
 
     @Test
@@ -113,7 +129,7 @@ class ExpressionToObjectParserTest {
         }
     }
 
-    static class SampleObject{
+    static class SimpleObject {
         @StringConstructed(extractor = DummyExtractor.class)
         String s;
         @StringConstructedArray(extractor = DummyArrayExtractor.class, of = String.class)

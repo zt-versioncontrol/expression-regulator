@@ -1,53 +1,79 @@
 package base.expressions;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
-public abstract class Expression {
-    private final String expression;
-    private Expression origin;
-    private List<Expression> derivedExpressions = null;
+public class Expression {
+    private final Expression originalExpression;
+    private final String expressionString;
+    private final String extractorName;
+    private final List<Expression> derivedExpressions = new ArrayList<>();
 
-    public Expression(String expression) {
-        this.expression = normalize(expression);
-        this.origin = null;
-        initializeDerivedExpressions();
+
+    public Expression(Expression originalExpression, String expressionString, String extractorName) {
+        this.originalExpression = originalExpression;
+        this.expressionString = expressionString;
+        this.extractorName = extractorName;
     }
 
-    private void initializeDerivedExpressions(){
-        List<Expression> expressionQueue = new ArrayList<>();
-        expressionQueue.add(this);
-        while (!expressionQueue.isEmpty()){
-            Expression nextExpression = expressionQueue.remove(0);
+    public void addDerivedExpression(Expression derivedExpression){
+        derivedExpressions.add(derivedExpression);
+    }
 
-            nextExpression.derivedExpressions = nextExpression.computeDerivedExpressions();
-            if (nextExpression.derivedExpressions == null) nextExpression.derivedExpressions = new ArrayList<>();
-            for (Expression derivedExpression : nextExpression.derivedExpressions) {
-                derivedExpression.origin = nextExpression;
-            }
 
-            expressionQueue.addAll(nextExpression.derivedExpressions);
-        }
+    public Expression getOriginalExpression() {
+        return originalExpression;
+    }
+
+    public String getExpressionString() {
+        return expressionString;
+    }
+
+    public String getExtractorName() {
+        return extractorName;
+    }
+
+    public Iterable<Expression> getDerivedExpressions() {
+        return derivedExpressions;
     }
 
     @Override
-    public String toString(){
-        return expression;
+    public boolean equals(Object obj) {
+        if (obj instanceof Expression otherExpression){
+            if(originalExpression == null){
+                if (otherExpression.originalExpression != null) return false;
+            } else if(!originalExpression.equals(otherExpression.originalExpression)) return false;
+
+            if (expressionString == null) return false;
+            else if(!expressionString.equals(otherExpression.expressionString)) return false;
+
+            if (extractorName == null){
+                if(otherExpression.extractorName != null) return false;
+            } else if(!extractorName.equals(otherExpression.extractorName)) return false;
+
+            return derivedExpressionsEquals(otherExpression);
+        }
+
+        return false;
     }
 
-    public Iterator<Expression> getDerivedExpressions(){
-        return derivedExpressions.iterator();
-    }
+    private boolean derivedExpressionsEquals(Expression otherExpression){
+        if (derivedExpressions.size() != otherExpression.derivedExpressions.size()) return false;
 
-    public Expression getOrigin() {
-        return origin;
-    }
+        for (int i = 0; i < derivedExpressions.size(); i++) {
+            Expression derivedExpression = derivedExpressions.get(i);
+            Expression otherDerivedExpression = otherExpression.derivedExpressions.get(i);
 
-    public Class<? extends Expression> getType(){
-        return this.getClass();
-    }
+            if (derivedExpression.expressionString == null) return false;
+            else if(!derivedExpression.expressionString.equals(otherDerivedExpression.expressionString)) return false;
 
-    protected abstract String normalize(String expression);
-    protected abstract List<Expression> computeDerivedExpressions();
+            if (derivedExpression.extractorName == null){
+                if (otherDerivedExpression.extractorName != null) return false;
+            } else if(!derivedExpression.extractorName.equals(otherDerivedExpression.extractorName)) return false;
+
+            if(!derivedExpression.derivedExpressionsEquals(otherDerivedExpression)) return false;
+        }
+
+        return true;
+    }
 }

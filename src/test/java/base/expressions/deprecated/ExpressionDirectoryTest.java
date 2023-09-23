@@ -1,4 +1,4 @@
-package base.expressions;
+package base.expressions.deprecated;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -226,7 +226,7 @@ class ExpressionDirectoryTest {
 
 
 
-    private static class Level1Expression extends Expression{
+    private static class Level1Expression extends Expression {
 
         public Level1Expression(String expression) {
             super(expression);
@@ -247,7 +247,7 @@ class ExpressionDirectoryTest {
         }
     }
 
-    private static class Level2Expression extends Expression{
+    private static class Level2Expression extends Expression {
 
         public Level2Expression(String expression, Expression origin) {
             super(expression);
@@ -267,7 +267,7 @@ class ExpressionDirectoryTest {
         }
     }
 
-    private static class Level2Expression2 extends Expression{
+    private static class Level2Expression2 extends Expression {
 
         public Level2Expression2(String expression, Expression origin) {
             super(expression);
@@ -284,7 +284,7 @@ class ExpressionDirectoryTest {
         }
     }
 
-    private static class Level3Expression extends Expression{
+    private static class Level3Expression extends Expression {
 
         public Level3Expression(String expression) {
             super(expression);

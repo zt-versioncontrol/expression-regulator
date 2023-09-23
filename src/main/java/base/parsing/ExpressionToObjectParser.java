@@ -1,5 +1,7 @@
 package base.parsing;
 
+import base.expressions.Expression;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -16,7 +18,13 @@ public class ExpressionToObjectParser {
     }
 
 
-    public void parse(Object target, String expression)
+    public Expression parse(Object target, String expressionString)
+            throws InvocationTargetException ,InstantiationException, IllegalAccessException
+    {
+        return parse(target, expressionString, new Expression(null, expressionString, null));
+    }
+
+    private Expression parse(Object target, String expressionString, Expression rootExpression)
             throws InvocationTargetException ,InstantiationException, IllegalAccessException
     {
         List<Field> stringDerivedFields = Arrays.stream(target.getClass().getDeclaredFields())
@@ -35,14 +43,16 @@ public class ExpressionToObjectParser {
                 .filter(field -> field.isAnnotationPresent(StringConstructedArray.class))
                 .toList();
 
-        buildStringDerivedFields(stringDerivedFields, target, expression);
-        buildStringDerivedArrayFields(stringDerivedArrayFields, target, expression);
-        buildStringConstructedFields(stringConstructedFields, target, expression);
-        buildStringConstructedArrayFields(stringConstructedArrayFields, target, expression);
+        buildStringDerivedFields(stringDerivedFields, target, expressionString, rootExpression);
+        buildStringDerivedArrayFields(stringDerivedArrayFields, target, expressionString, rootExpression);
+        buildStringConstructedFields(stringConstructedFields, target, expressionString, rootExpression);
+        buildStringConstructedArrayFields(stringConstructedArrayFields, target, expressionString, rootExpression);
 
+        return rootExpression;
     }
 
-    private void buildStringDerivedFields(List<Field> stringDerivedFields, Object target, String expression)
+    private void buildStringDerivedFields(List<Field> stringDerivedFields, Object target,
+                                          String expressionString, Expression rootExpression)
             throws InvocationTargetException ,InstantiationException, IllegalAccessException
     {
         for (Field stringDerivedField : stringDerivedFields) {
@@ -57,9 +67,11 @@ public class ExpressionToObjectParser {
 
             stringDerivedField.setAccessible(true);
             try {
-                String fieldExpression = extractor.extractFromExpression(expression);
-                Object fieldObject = provider.provide(fieldExpression);
-                parse(fieldObject, fieldExpression);
+                String extractedExpressionString = extractor.extractFromExpression(expressionString);
+                Object fieldObject = provider.provide(extractedExpressionString);
+                Expression derivedExpression = new Expression(rootExpression, extractedExpressionString, extractorClass.getTypeName());
+                rootExpression.addDerivedExpression(derivedExpression);
+                parse(fieldObject, extractedExpressionString, derivedExpression);
                 stringDerivedField.set(target, fieldObject);
             }catch (IllegalArgumentException exception){
                 throw new IncompatibleInstanceProviderException();
@@ -67,7 +79,8 @@ public class ExpressionToObjectParser {
         }
     }
 
-    private void buildStringDerivedArrayFields(List<Field> stringDerivedArrayFields, Object target, String expression)
+    private void buildStringDerivedArrayFields(List<Field> stringDerivedArrayFields, Object target,
+                                               String expressionString, Expression rootExpression)
             throws InvocationTargetException ,InstantiationException, IllegalAccessException
     {
         for (Field stringDerivedArrayField : stringDerivedArrayFields) {
@@ -81,11 +94,13 @@ public class ExpressionToObjectParser {
             InstanceProvider provider = parsingService.getInstanceProvider(providerClass);
             if (provider == null) throw new InstanceProviderNotFoundException();
 
-            List<String> extractedExpressions = extractor.extractArrayFromExpression(expression);
+            List<String> extractedExpressionStrings = extractor.extractArrayFromExpression(expressionString);
             ArrayList<Object> providedObjects = new ArrayList<>();
-            for (String extractedExpression : extractedExpressions) {
-                Object object = provider.provide(extractedExpression);
-                parse(object, expression);
+            for (String extractedExpressionString : extractedExpressionStrings) {
+                Object object = provider.provide(extractedExpressionString);
+                Expression derivedExpression = new Expression(rootExpression, extractedExpressionString, extractorCLass.getTypeName());
+                rootExpression.addDerivedExpression(derivedExpression);
+                parse(object, expressionString, derivedExpression);
                 providedObjects.add(object);
             }
 
@@ -97,7 +112,8 @@ public class ExpressionToObjectParser {
         }
     }
 
-    private void buildStringConstructedFields(List<Field> stringConstructedFields, Object target, String expression)
+    private void buildStringConstructedFields(List<Field> stringConstructedFields, Object target,
+                                              String expressionString, Expression rootExpression)
             throws InvocationTargetException ,InstantiationException, IllegalAccessException
     {
         for (Field stringConstructedField : stringConstructedFields) {
@@ -115,15 +131,18 @@ public class ExpressionToObjectParser {
                 throw new FieldHasNoStringConstructorException();
             }
 
-            String fieldExpression = extractor.extract(expression);
-            Object fieldObject = fieldConstructor.newInstance(fieldExpression);
-            parse(fieldObject, fieldExpression);
+            String extractedExpressionString = extractor.extract(expressionString);
+            Object fieldObject = fieldConstructor.newInstance(extractedExpressionString);
+            Expression derivedExpression = new Expression(rootExpression, extractedExpressionString,extractorCLass.getTypeName());
+            rootExpression.addDerivedExpression(derivedExpression);
+            parse(fieldObject, extractedExpressionString, derivedExpression);
             stringConstructedField.set(target, fieldObject);
         }
     }
 
 
-    private void buildStringConstructedArrayFields(List<Field> stringConstructedArrayFields, Object target, String expression)
+    private void buildStringConstructedArrayFields(List<Field> stringConstructedArrayFields, Object target,
+                                                   String expressionString, Expression rootExpression)
             throws InvocationTargetException, InstantiationException, IllegalAccessException
     {
         for (Field stringConstructedArrayField : stringConstructedArrayFields) {
@@ -142,11 +161,13 @@ public class ExpressionToObjectParser {
             }
 
             stringConstructedArrayField.setAccessible(true);
-            List<String> extractedExpressions = extractor.extract(expression);
+            List<String> extractedExpressionStrings = extractor.extract(expressionString);
             ArrayList<Object> constructedObjects = new ArrayList<>();
-            for (String extractedExpression : extractedExpressions) {
-                Object constructedObject = arrayElementConstructor.newInstance(extractedExpression);
-                parse(constructedObject, extractedExpression);
+            for (String extractedExpressionString : extractedExpressionStrings) {
+                Object constructedObject = arrayElementConstructor.newInstance(extractedExpressionString);
+                Expression derivedExpression = new Expression(rootExpression, extractedExpressionString, extractorClass.getTypeName());
+                rootExpression.addDerivedExpression(derivedExpression);
+                parse(constructedObject, extractedExpressionString, derivedExpression);
                 constructedObjects.add(constructedObject);
             }
             stringConstructedArrayField.set(target, constructedObjects);

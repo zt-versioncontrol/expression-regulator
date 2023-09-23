@@ -1,29 +1,21 @@
 package base.parsing;
 
-import base.auditing.AuditingService;
 
 import java.util.List;
 
 public abstract class ExpressionArrayExtractor {
     private final ExpressionNormalizer normalizer;
-    private AuditingService auditingService;
 
     public ExpressionArrayExtractor() {
         normalizer = getNormalizer();
     }
 
     public List<String> extractArrayFromExpression(String expression){
-        String normalized = normalizer.normalize(expression);
-        List<String> extracted = extract(expression);
+        String normalizedForm = normalizer.normalize(expression);
 
-        auditingService.report(new ReportedArrayExtraction(this.getClass(), expression, normalized, extracted));
-
-        return extracted;
+        return extract(normalizedForm);
     }
 
-    public void setAuditingService(AuditingService auditingService) {
-        this.auditingService = auditingService;
-    }
 
     protected abstract List<String> extract(String expression);
     protected abstract ExpressionNormalizer getNormalizer();
