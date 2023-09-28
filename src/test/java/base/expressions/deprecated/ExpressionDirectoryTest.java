@@ -2,7 +2,7 @@ package base.expressions.deprecated;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import utility.Revertible;
+import utility.structure.Revertible;
 
 import java.util.ArrayList;
 import java.util.List;

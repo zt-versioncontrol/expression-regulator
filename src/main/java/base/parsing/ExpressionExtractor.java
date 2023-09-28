@@ -10,6 +10,7 @@ public abstract class ExpressionExtractor {
     }
 
     public String extractFromExpression(String expression){
+        // TODO: 9/28/2023 handle parsing exceptions here, both for normalization and extraction
         String normalizedForm = normalizer.normalize(expression);
         return extract(normalizedForm);
     }

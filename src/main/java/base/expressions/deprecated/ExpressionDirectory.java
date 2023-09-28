@@ -1,7 +1,7 @@
 package base.expressions.deprecated;
 
-import utility.ReusableIterator;
-import utility.Revertible;
+import utility.structure.ReusableIterator;
+import utility.structure.Revertible;
 
 @Deprecated
 public class ExpressionDirectory {

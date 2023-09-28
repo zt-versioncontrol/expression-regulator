@@ -4,11 +4,11 @@ import base.parsing.ExpressionExtractor;
 import base.parsing.ExpressionNormalizer;
 import regulators.json.parser.normalizers.Trimmer;
 
-public class PropertyNameExtractor extends ExpressionExtractor {
+public class PropertyValueExtractor extends ExpressionExtractor {
     @Override
     protected String extract(String expression) {
-        if(!expression.contains(":")) return expression;
-        return expression.substring(0, expression.indexOf(':')).trim();
+        if (!expression.contains(":")) return "";
+        return expression.substring(expression.indexOf(":")+1);
     }
 
     @Override
