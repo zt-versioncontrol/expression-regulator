@@ -43,12 +43,12 @@ class ExpressionToObjectParserTest {
 
     @Test
     void ExpressionTree() throws Exception{
-        Expression rootExpression = new Expression(null, "123456", null);
-        Expression level1Expression = new Expression(rootExpression, "23456", DummyExtractor.class.getTypeName());
+        Expression rootExpression = new Expression("123456", RootExpressionExtractor.class);
+        Expression level1Expression = new Expression("23456", DummyExtractor.class);
         rootExpression.addDerivedExpression(level1Expression);
-        Expression level2Expression1 = new Expression(level1Expression, "3456", DummyExtractor.class.getTypeName());
-        Expression level2Expression2 = new Expression(level1Expression, "3456", DummyArrayExtractor.class.getTypeName());;
-        Expression level2Expression3 = new Expression(level1Expression, "456", DummyArrayExtractor.class.getTypeName());;
+        Expression level2Expression1 = new Expression("3456", DummyExtractor.class);
+        Expression level2Expression2 = new Expression("3456", DummyArrayExtractor.class);
+        Expression level2Expression3 = new Expression("456", DummyArrayExtractor.class);
         level1Expression.addDerivedExpression(level2Expression1);
         level1Expression.addDerivedExpression(level2Expression2);
         level1Expression.addDerivedExpression(level2Expression3);
@@ -85,8 +85,8 @@ class ExpressionToObjectParserTest {
         }
 
         @Override
-        protected ExpressionNormalizer getNormalizer() {
-            return s -> s;
+        protected String normalize(String expression) {
+            return expression;
         }
     }
 
@@ -98,8 +98,8 @@ class ExpressionToObjectParserTest {
         }
 
         @Override
-        protected ExpressionNormalizer getNormalizer() {
-            return s -> s;
+        protected String normalize(String expression) {
+            return expression;
         }
     }
 

@@ -1,25 +1,29 @@
 package base.expressions;
 
+import base.parsing.ExtractorType;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Expression {
-    private final Expression originalExpression;
+    private Expression originalExpression;
     private final String expressionString;
-    private final String extractorName;
+    private final Class<? extends ExtractorType> extractorClass;
     private final List<Expression> derivedExpressions = new ArrayList<>();
 
 
-    public Expression(Expression originalExpression, String expressionString, String extractorName) {
-        this.originalExpression = originalExpression;
+    public Expression(String expressionString, Class<? extends ExtractorType> extractorClass) {
+        this.originalExpression = null;
         this.expressionString = expressionString;
-        this.extractorName = extractorName;
+        this.extractorClass = extractorClass;
     }
 
-    public void addDerivedExpression(Expression derivedExpression){
+
+    public void addDerivedExpression(Expression derivedExpression) throws ExpressionAlreadyHasOrigin{
+        if (derivedExpression.originalExpression != null) throw new ExpressionAlreadyHasOrigin();
+        derivedExpression.originalExpression = this;
         derivedExpressions.add(derivedExpression);
     }
-
 
     public Expression getOriginalExpression() {
         return originalExpression;
@@ -29,8 +33,8 @@ public class Expression {
         return expressionString;
     }
 
-    public String getExtractorName() {
-        return extractorName;
+    public Class<? extends ExtractorType> getExtractorClass() {
+        return extractorClass;
     }
 
     public Iterable<Expression> getDerivedExpressions() {
@@ -47,9 +51,9 @@ public class Expression {
             if (expressionString == null) return false;
             else if(!expressionString.equals(otherExpression.expressionString)) return false;
 
-            if (extractorName == null){
-                if(otherExpression.extractorName != null) return false;
-            } else if(!extractorName.equals(otherExpression.extractorName)) return false;
+            if (extractorClass == null){
+                if(otherExpression.extractorClass != null) return false;
+            } else if(!extractorClass.equals(otherExpression.extractorClass)) return false;
 
             return derivedExpressionsEquals(otherExpression);
         }
@@ -67,13 +71,15 @@ public class Expression {
             if (derivedExpression.expressionString == null) return false;
             else if(!derivedExpression.expressionString.equals(otherDerivedExpression.expressionString)) return false;
 
-            if (derivedExpression.extractorName == null){
-                if (otherDerivedExpression.extractorName != null) return false;
-            } else if(!derivedExpression.extractorName.equals(otherDerivedExpression.extractorName)) return false;
+            if (derivedExpression.extractorClass == null){
+                if (otherDerivedExpression.extractorClass != null) return false;
+            } else if(!derivedExpression.extractorClass.equals(otherDerivedExpression.extractorClass)) return false;
 
             if(!derivedExpression.derivedExpressionsEquals(otherDerivedExpression)) return false;
         }
 
         return true;
     }
+
+    public static class ExpressionAlreadyHasOrigin extends RuntimeException{};
 }

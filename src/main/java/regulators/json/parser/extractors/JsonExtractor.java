@@ -2,11 +2,10 @@ package regulators.json.parser.extractors;
 
 import base.parsing.ExpressionExtractor;
 
-public class PropertyNameExtractor extends ExpressionExtractor {
+public class JsonExtractor extends ExpressionExtractor {
     @Override
     protected String extract(String expression) {
-        if(!expression.contains(":")) return expression;
-        return expression.substring(0, expression.indexOf(':')).trim();
+        return expression;
     }
 
     @Override

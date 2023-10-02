@@ -1,20 +1,13 @@
 package base.parsing;
 
 
-public abstract class ExpressionExtractor {
-    private final ExpressionNormalizer normalizer;
-
-
-    protected ExpressionExtractor() {
-        this.normalizer = getNormalizer();
-    }
-
+public abstract class ExpressionExtractor extends ExtractorType{
     public String extractFromExpression(String expression){
         // TODO: 9/28/2023 handle parsing exceptions here, both for normalization and extraction
-        String normalizedForm = normalizer.normalize(expression);
+        String normalizedForm = normalize(expression);
         return extract(normalizedForm);
     }
 
     protected abstract String extract(String expression);
-    protected abstract ExpressionNormalizer getNormalizer();
+    protected abstract String normalize(String expression);
 }

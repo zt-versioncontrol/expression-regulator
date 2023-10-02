@@ -1,8 +1,6 @@
 package regulators.json.parser.extractors;
 
 import base.parsing.ExpressionArrayExtractor;
-import base.parsing.ExpressionNormalizer;
-import regulators.json.parser.normalizers.JsonArrayNormalizer;
 import utility.string.ParsingUtilities;
 import utility.string.SearchingUtilities;
 import utility.structure.Pair;
@@ -30,7 +28,9 @@ public class JsonArrayElementsExtractor extends ExpressionArrayExtractor {
     }
 
     @Override
-    protected ExpressionNormalizer getNormalizer() {
-        return new JsonArrayNormalizer();
+    protected String normalize(String expression) {
+        expression = expression.trim();
+        expression = expression.substring(1, expression.length()-1);
+        return expression.trim();
     }
 }

@@ -1,8 +1,6 @@
 package regulators.json.parser.extractors;
 
 import base.parsing.ExpressionExtractor;
-import base.parsing.ExpressionNormalizer;
-import regulators.json.parser.normalizers.Trimmer;
 
 public class JsonStringExtractor extends ExpressionExtractor {
     @Override
@@ -11,7 +9,7 @@ public class JsonStringExtractor extends ExpressionExtractor {
     }
 
     @Override
-    protected ExpressionNormalizer getNormalizer() {
-        return new Trimmer();
+    protected String normalize(String expression) {
+        return expression.trim();
     }
 }

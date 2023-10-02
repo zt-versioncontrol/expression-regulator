@@ -21,7 +21,7 @@ public class ExpressionToObjectParser {
     public Expression parse(Object target, String expressionString)
             throws InvocationTargetException ,InstantiationException, IllegalAccessException
     {
-        return parse(target, expressionString, new Expression(null, expressionString, null));
+        return parse(target, expressionString, new Expression(expressionString, RootExpressionExtractor.class));
     }
 
     private Expression parse(Object target, String expressionString, Expression rootExpression)
@@ -69,7 +69,7 @@ public class ExpressionToObjectParser {
             try {
                 String extractedExpressionString = extractor.extractFromExpression(expressionString);
                 Object fieldObject = provider.provide(extractedExpressionString);
-                Expression derivedExpression = new Expression(rootExpression, extractedExpressionString, extractorClass.getTypeName());
+                Expression derivedExpression = new Expression(extractedExpressionString, extractorClass);
                 rootExpression.addDerivedExpression(derivedExpression);
                 parse(fieldObject, extractedExpressionString, derivedExpression);
                 stringDerivedField.set(target, fieldObject);
@@ -98,7 +98,7 @@ public class ExpressionToObjectParser {
             ArrayList<Object> providedObjects = new ArrayList<>();
             for (String extractedExpressionString : extractedExpressionStrings) {
                 Object object = provider.provide(extractedExpressionString);
-                Expression derivedExpression = new Expression(rootExpression, extractedExpressionString, extractorCLass.getTypeName());
+                Expression derivedExpression = new Expression(extractedExpressionString, extractorCLass);
                 rootExpression.addDerivedExpression(derivedExpression);
                 parse(object, expressionString, derivedExpression);
                 providedObjects.add(object);
@@ -133,7 +133,7 @@ public class ExpressionToObjectParser {
 
             String extractedExpressionString = extractor.extract(expressionString);
             Object fieldObject = fieldConstructor.newInstance(extractedExpressionString);
-            Expression derivedExpression = new Expression(rootExpression, extractedExpressionString,extractorCLass.getTypeName());
+            Expression derivedExpression = new Expression(extractedExpressionString,extractorCLass);
             rootExpression.addDerivedExpression(derivedExpression);
             parse(fieldObject, extractedExpressionString, derivedExpression);
             stringConstructedField.set(target, fieldObject);
@@ -165,7 +165,7 @@ public class ExpressionToObjectParser {
             ArrayList<Object> constructedObjects = new ArrayList<>();
             for (String extractedExpressionString : extractedExpressionStrings) {
                 Object constructedObject = arrayElementConstructor.newInstance(extractedExpressionString);
-                Expression derivedExpression = new Expression(rootExpression, extractedExpressionString, extractorClass.getTypeName());
+                Expression derivedExpression = new Expression(extractedExpressionString, extractorClass);
                 rootExpression.addDerivedExpression(derivedExpression);
                 parse(constructedObject, extractedExpressionString, derivedExpression);
                 constructedObjects.add(constructedObject);
