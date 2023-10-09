@@ -1,9 +1,10 @@
 package base.expressions.validation.selectors.simple;
 
+import base.components.expression.validation.BasicExpressionSelector;
 import base.expressions.Expression;
-import base.parsing.ExtractorType;
+import base.components.expression.parsing.ExtractorType;
 
-public abstract class ByExtractorAndExtractorOfOrigin implements SimpleExpressionSelector {
+public abstract class ByExtractorAndExtractorOfOrigin implements BasicExpressionSelector {
     private final Class<? extends ExtractorType> extractorClass;
     private final Class<? extends ExtractorType> originExtractorClass;
 
@@ -14,9 +15,29 @@ public abstract class ByExtractorAndExtractorOfOrigin implements SimpleExpressio
 
     @Override
     public boolean isSelected(Expression expression) {
-        if (expression.getOriginalExpression() == null) return false;
+        return Utilities.extractorMatches(expression, extractorClass) &&
+                Utilities.extractorOfOriginMatches(expression, originExtractorClass);
+    }
 
-        return extractorClass.equals(expression.getExtractorClass()) &&
-                originExtractorClass.equals(expression.getOriginalExpression().getExtractorClass());
+    public static abstract class WithMatcher extends ByExtractorAndExtractorOfOrigin{
+        private final StringMatcher stringMatcher;
+        private final StringMatcher originStringMatcher;
+
+        protected WithMatcher(Class<? extends ExtractorType> extractorClass,
+                              Class<? extends ExtractorType> originExtractorClass,
+                              StringMatcher stringMatcher,
+                              StringMatcher originStringMatcher)
+        {
+            super(extractorClass, originExtractorClass);
+            this.stringMatcher = stringMatcher;
+            this.originStringMatcher = originStringMatcher;
+        }
+
+        @Override
+        public boolean isSelected(Expression expression) {
+            return super.isSelected(expression) &&
+                    Utilities.expressionMatches(expression, stringMatcher) &&
+                    Utilities.originalExpressionMatches(expression, originStringMatcher);
+        }
     }
 }

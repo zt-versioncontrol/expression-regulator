@@ -1,38 +1,65 @@
 package base.expressions.validation.selectors.simple;
 
+import base.components.expression.validation.BasicExpressionSelector;
 import base.expressions.Expression;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import javax.swing.*;
-
 import static org.junit.jupiter.api.Assertions.*;
+import static base.expressions.validation.selectors.simple.DummyExtractors.*;
+
 
 class ByExtractorAndHasDerivedByExtractorTest {
+    Expression dummyExpression;
+
+    @BeforeEach
+    void setUp() {
+        Expression origin = new Expression("origin", DummyExtractors.OriginalExtractor.class);
+        dummyExpression = new Expression("dummy", DummyExtractors.Extractor.class);
+        Expression derived1 = new Expression("derived", DummyExtractors.DervivedExtractor.class);
+        Expression derived2 = new Expression("derived", DummyExtractors.Extractor.class);
+
+        origin.addDerivedExpression(dummyExpression);
+        dummyExpression.addDerivedExpression(derived1);
+        dummyExpression.addDerivedExpression(derived2);
+    }
 
     @Test
     void isSelected() {
-        Expression expression1 = new Expression("123", DummyExtractors.Extractor.class);
-        Expression derived1 = new Expression("123", DummyExtractors.DervivedExtractor.class);
-        Expression derived2 = new Expression("123", DummyExtractors.Extractor.class);
-        Expression derived3 = new Expression("123", DummyExtractors.DervivedExtractor.class);
+        BasicExpressionSelector selectorTrue = new ByExtractorAndHasDerivedByExtractor(Extractor.class, DervivedExtractor.class){};
+        BasicExpressionSelector selectorFalse1 = new ByExtractorAndHasDerivedByExtractor(DervivedExtractor.class, DervivedExtractor.class){};
+        BasicExpressionSelector selectorFalse2 = new ByExtractorAndHasDerivedByExtractor(Extractor.class, OriginalExtractor.class){};
+        BasicExpressionSelector selectorNull = new ByExtractorAndHasDerivedByExtractor(null, null){};
 
-        Expression expression2 = new Expression("123", DummyExtractors.OriginalExtractor.class);
+        assertTrue(selectorTrue.isSelected(dummyExpression));
+        assertFalse(selectorFalse1.isSelected(dummyExpression));
+        assertFalse(selectorFalse2.isSelected(dummyExpression));
+        assertFalse(selectorNull.isSelected(dummyExpression));
+    }
 
-        expression1.addDerivedExpression(derived1);
-        expression1.addDerivedExpression(derived2);
+    @Test
+    void isSelectedWithMatcher() {
+        StringMatcher dummyMatcher = string -> string.equals("dummy");
+        StringMatcher derivedMatcher = string -> string.equals("derived");
 
-        expression2.addDerivedExpression(derived3);
+        BasicExpressionSelector selectorTrue = new ByExtractorAndHasDerivedByExtractor.WithMatcher(
+                Extractor.class, DervivedExtractor.class, dummyMatcher, derivedMatcher){};
+        BasicExpressionSelector selectorFalse1 = new ByExtractorAndHasDerivedByExtractor.WithMatcher(
+                OriginalExtractor.class, DervivedExtractor.class, dummyMatcher, derivedMatcher){};
+        BasicExpressionSelector selectorFalse2 = new ByExtractorAndHasDerivedByExtractor.WithMatcher(
+                Extractor.class, OriginalExtractor.class, dummyMatcher, derivedMatcher){};
+        BasicExpressionSelector selectorFalse3 = new ByExtractorAndHasDerivedByExtractor.WithMatcher(
+                Extractor.class, DervivedExtractor.class, derivedMatcher, derivedMatcher){};
+        BasicExpressionSelector selectorFalse4 = new ByExtractorAndHasDerivedByExtractor.WithMatcher(
+                Extractor.class, DervivedExtractor.class, dummyMatcher, dummyMatcher){};
+        BasicExpressionSelector selectorNull = new ByExtractorAndHasDerivedByExtractor.WithMatcher(
+                null, null, dummyMatcher, derivedMatcher){};
 
-        ByExtractorAndHasDerivedByExtractor selector1 =
-                new ByExtractorAndHasDerivedByExtractor(DummyExtractors.Extractor.class, DummyExtractors.DervivedExtractor.class) {};
-        ByExtractorAndHasDerivedByExtractor selector2 =
-                new ByExtractorAndHasDerivedByExtractor(null, null) {};
-
-        assertTrue(selector1.isSelected(expression1)); //both extractors match
-        assertFalse(selector1.isSelected(derived1)); //both extractors do not match
-        assertFalse(selector1.isSelected(derived2)); //derived extractor does not match
-        assertFalse(selector1.isSelected(expression2)); //only derivedExtractor matches
-
-        assertThrowsExactly(NullPointerException.class, () -> selector2.isSelected(expression1));
+        assertTrue(selectorTrue.isSelected(dummyExpression));
+        assertFalse(selectorFalse1.isSelected(dummyExpression));
+        assertFalse(selectorFalse2.isSelected(dummyExpression));
+        assertFalse(selectorFalse3.isSelected(dummyExpression));
+        assertFalse(selectorFalse4.isSelected(dummyExpression));
+        assertFalse(selectorNull.isSelected(dummyExpression));
     }
 }

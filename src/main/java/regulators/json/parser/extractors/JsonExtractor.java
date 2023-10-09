@@ -1,6 +1,6 @@
 package regulators.json.parser.extractors;
 
-import base.parsing.ExpressionExtractor;
+import base.components.expression.parsing.ExpressionExtractor;
 
 public class JsonExtractor extends ExpressionExtractor {
     @Override

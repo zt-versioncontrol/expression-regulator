@@ -1,6 +1,6 @@
 package regulators.json.parser.providers;
 
-import base.parsing.InstanceProvider;
+import base.components.expression.parsing.InstanceProvider;
 
 public class JsonNumberProvider implements InstanceProvider {
     @Override

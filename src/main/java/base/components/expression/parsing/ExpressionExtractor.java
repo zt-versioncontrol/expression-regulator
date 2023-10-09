@@ -1,7 +1,7 @@
-package base.parsing;
+package base.components.expression.parsing;
 
 
-public abstract class ExpressionExtractor extends ExtractorType{
+public abstract class ExpressionExtractor implements ExtractorType {
     public String extractFromExpression(String expression){
         // TODO: 9/28/2023 handle parsing exceptions here, both for normalization and extraction
         String normalizedForm = normalize(expression);

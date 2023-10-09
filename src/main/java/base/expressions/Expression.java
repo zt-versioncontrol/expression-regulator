@@ -1,6 +1,6 @@
 package base.expressions;
 
-import base.parsing.ExtractorType;
+import base.components.expression.parsing.ExtractorType;
 
 import java.util.ArrayList;
 import java.util.List;

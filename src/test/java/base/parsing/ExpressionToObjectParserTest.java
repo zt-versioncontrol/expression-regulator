@@ -1,5 +1,8 @@
 package base.parsing;
 
+import base.components.expression.parsing.ExpressionArrayExtractor;
+import base.components.expression.parsing.ExpressionExtractor;
+import base.components.expression.parsing.InstanceProvider;
 import base.expressions.Expression;
 import org.junit.jupiter.api.Test;
 
@@ -43,7 +46,7 @@ class ExpressionToObjectParserTest {
 
     @Test
     void ExpressionTree() throws Exception{
-        Expression rootExpression = new Expression("123456", RootExpressionExtractor.class);
+        Expression rootExpression = new Expression("123456", _RootExpressionExtractor.class);
         Expression level1Expression = new Expression("23456", DummyExtractor.class);
         rootExpression.addDerivedExpression(level1Expression);
         Expression level2Expression1 = new Expression("3456", DummyExtractor.class);
@@ -56,7 +59,6 @@ class ExpressionToObjectParserTest {
         ComplexObject complexObject = new ComplexObject();
         Expression computedRootExpression = parser.parse(complexObject, "123456");
 
-       // rootExpression.equals(computedRootExpression);
         assertEquals(rootExpression, computedRootExpression);
     }
 
@@ -77,7 +79,7 @@ class ExpressionToObjectParserTest {
                 () -> parser.parse(falseObject4, "123456"));
     }
 
-    static class DummyExtractor extends ExpressionExtractor{
+    static class DummyExtractor extends ExpressionExtractor {
 
         @Override
         protected String extract(String expression) {
@@ -90,7 +92,7 @@ class ExpressionToObjectParserTest {
         }
     }
 
-    static class DummyArrayExtractor extends ExpressionArrayExtractor{
+    static class DummyArrayExtractor extends ExpressionArrayExtractor {
 
         @Override
         protected List<String> extract(String expression) {
@@ -103,7 +105,7 @@ class ExpressionToObjectParserTest {
         }
     }
 
-    static class StringProvider implements InstanceProvider{
+    static class StringProvider implements InstanceProvider {
 
         @Override
         public Object provide(String expression) {
@@ -111,7 +113,7 @@ class ExpressionToObjectParserTest {
         }
     }
 
-    static class DummyParsingService implements ParsingUtilitiesService{
+    static class DummyParsingService extends ParsingUtilitiesService{
 
         @Override
         public ExpressionExtractor getExpressionExtractor(Class<? extends ExpressionExtractor> extractorClass) {

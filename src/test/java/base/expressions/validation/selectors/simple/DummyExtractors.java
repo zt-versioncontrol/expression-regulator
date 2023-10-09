@@ -1,6 +1,6 @@
 package base.expressions.validation.selectors.simple;
 
-import base.parsing.ExpressionExtractor;
+import base.components.expression.parsing.ExpressionExtractor;
 
 public class DummyExtractors {
     public static class OriginalExtractor extends ExpressionExtractor{

@@ -1,5 +1,8 @@
 package base.parsing;
 
+import base.components.expression.parsing.ExpressionArrayExtractor;
+import base.components.expression.parsing.ExpressionExtractor;
+import base.components.expression.parsing.InstanceProvider;
 import base.expressions.Expression;
 
 import java.lang.reflect.Constructor;
@@ -13,7 +16,7 @@ public class ExpressionToObjectParser {
 
 
 
-    protected ExpressionToObjectParser(ParsingUtilitiesService parsingService) {
+    public ExpressionToObjectParser(ParsingUtilitiesService parsingService) {
         this.parsingService = parsingService;
     }
 
@@ -21,7 +24,7 @@ public class ExpressionToObjectParser {
     public Expression parse(Object target, String expressionString)
             throws InvocationTargetException ,InstantiationException, IllegalAccessException
     {
-        return parse(target, expressionString, new Expression(expressionString, RootExpressionExtractor.class));
+        return parse(target, expressionString, new Expression(expressionString, _RootExpressionExtractor.class));
     }
 
     private Expression parse(Object target, String expressionString, Expression rootExpression)
@@ -70,6 +73,10 @@ public class ExpressionToObjectParser {
                 String extractedExpressionString = extractor.extractFromExpression(expressionString);
                 Object fieldObject = provider.provide(extractedExpressionString);
                 Expression derivedExpression = new Expression(extractedExpressionString, extractorClass);
+                // TODO: 10/5/2023 test this
+                if (stringDerivedField.isAnnotationPresent(AbstractType.class)){
+                    derivedExpression.addDerivedExpression(new Expression(fieldObject.getClass().getTypeName(), _ConcreteTypeExtractor.class));
+                }
                 rootExpression.addDerivedExpression(derivedExpression);
                 parse(fieldObject, extractedExpressionString, derivedExpression);
                 stringDerivedField.set(target, fieldObject);
@@ -99,6 +106,10 @@ public class ExpressionToObjectParser {
             for (String extractedExpressionString : extractedExpressionStrings) {
                 Object object = provider.provide(extractedExpressionString);
                 Expression derivedExpression = new Expression(extractedExpressionString, extractorCLass);
+                // TODO: 10/5/2023 test this
+                if (stringDerivedArrayField.isAnnotationPresent(AbstractType.class)){
+                    derivedExpression.addDerivedExpression(new Expression(object.getClass().getTypeName(), _ConcreteTypeExtractor.class));
+                }
                 rootExpression.addDerivedExpression(derivedExpression);
                 parse(object, expressionString, derivedExpression);
                 providedObjects.add(object);
@@ -131,7 +142,7 @@ public class ExpressionToObjectParser {
                 throw new FieldHasNoStringConstructorException();
             }
 
-            String extractedExpressionString = extractor.extract(expressionString);
+            String extractedExpressionString = extractor.extractFromExpression(expressionString);
             Object fieldObject = fieldConstructor.newInstance(extractedExpressionString);
             Expression derivedExpression = new Expression(extractedExpressionString,extractorCLass);
             rootExpression.addDerivedExpression(derivedExpression);
@@ -161,7 +172,7 @@ public class ExpressionToObjectParser {
             }
 
             stringConstructedArrayField.setAccessible(true);
-            List<String> extractedExpressionStrings = extractor.extract(expressionString);
+            List<String> extractedExpressionStrings = extractor.extractArrayFromExpression(expressionString);
             ArrayList<Object> constructedObjects = new ArrayList<>();
             for (String extractedExpressionString : extractedExpressionStrings) {
                 Object constructedObject = arrayElementConstructor.newInstance(extractedExpressionString);

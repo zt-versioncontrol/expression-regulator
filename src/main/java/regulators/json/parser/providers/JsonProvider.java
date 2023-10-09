@@ -1,6 +1,6 @@
 package regulators.json.parser.providers;
 
-import base.parsing.InstanceProvider;
+import base.components.expression.parsing.InstanceProvider;
 import regulators.json.parser.parsedObjects.*;
 
 public class JsonProvider implements InstanceProvider {
@@ -13,7 +13,7 @@ public class JsonProvider implements InstanceProvider {
         else if (expression.equalsIgnoreCase("true") || expression.equalsIgnoreCase("false")) return new JsonBinary();
         else if (isNumber(expression)) return new JsonNumber();
         else if (expression.equalsIgnoreCase("null")) return new JsonNull();
-        return null;
+        return new JsonInvalid();
     }
 
 

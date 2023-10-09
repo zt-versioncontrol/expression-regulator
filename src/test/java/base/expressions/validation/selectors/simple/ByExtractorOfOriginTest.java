@@ -1,29 +1,53 @@
 package base.expressions.validation.selectors.simple;
 
+import base.components.expression.validation.BasicExpressionSelector;
 import base.expressions.Expression;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static base.expressions.validation.selectors.simple.DummyExtractors.*;
 
 class ByExtractorOfOriginTest {
+    Expression dummyExpression;
+
+    @BeforeEach
+    void setUp() {
+        Expression origin = new Expression("origin", OriginalExtractor.class);
+        dummyExpression = new Expression("dummy", Extractor.class);
+        Expression derived1 = new Expression("derived", DervivedExtractor.class);
+        Expression derived2 = new Expression("derived", Extractor.class);
+
+        origin.addDerivedExpression(dummyExpression);
+        dummyExpression.addDerivedExpression(derived1);
+        dummyExpression.addDerivedExpression(derived2);
+    }
 
     @Test
     void isSelected() {
-        Expression origin = new Expression("123", DummyExtractors.OriginalExtractor.class);
-        Expression expression1 = new Expression("123", DummyExtractors.Extractor.class);
+        BasicExpressionSelector byExtractorOfOriginTrue = new ByExtractorOfOrigin(OriginalExtractor.class) {};
+        BasicExpressionSelector byExtractorOfOriginFalse = new ByExtractorOfOrigin(Extractor.class) {};
+        BasicExpressionSelector byExtractorOfOriginNull = new ByExtractorOfOrigin(null) {};
 
-        Expression expression2 = new Expression("123", DummyExtractors.Extractor.class);
+        assertTrue(byExtractorOfOriginTrue.isSelected(dummyExpression));
+        assertFalse(byExtractorOfOriginFalse.isSelected(dummyExpression));
+        assertFalse(byExtractorOfOriginNull.isSelected(dummyExpression));
 
-        origin.addDerivedExpression(expression1);
+    }
 
-        ByExtractorOfOrigin selector1 = new ByExtractorOfOrigin(DummyExtractors.OriginalExtractor.class) {};
-        ByExtractorOfOrigin selector2 = new ByExtractorOfOrigin(null) {};
+    @Test
+    void isSelectedWithMatcher() {
+        StringMatcher originMatcher = string -> string.equals("origin");
+        StringMatcher dummyMatcher = string -> string.equals("dummy");
 
-        assertTrue(selector1.isSelected(expression1)); //matches
-        assertFalse(selector1.isSelected(origin)); //does not match
+        BasicExpressionSelector withMatcherTrue = new ByExtractorOfOrigin.WithMatcher(OriginalExtractor.class, originMatcher){};
+        BasicExpressionSelector withMatcherFalse1 = new ByExtractorOfOrigin.WithMatcher(Extractor.class, originMatcher){};
+        BasicExpressionSelector withMatcherFalse2 = new ByExtractorOfOrigin.WithMatcher(OriginalExtractor.class, dummyMatcher){};
+        BasicExpressionSelector withMatcherNull = new ByExtractorOfOrigin.WithMatcher(null, originMatcher){};
 
-        assertFalse(selector1.isSelected(expression2)); //null
-
-        assertThrowsExactly(NullPointerException.class, () -> selector2.isSelected(expression1));
+        assertTrue(withMatcherTrue.isSelected(dummyExpression));
+        assertFalse(withMatcherFalse1.isSelected(dummyExpression));
+        assertFalse(withMatcherFalse2.isSelected(dummyExpression));
+        assertFalse(withMatcherNull.isSelected(dummyExpression));
     }
 }

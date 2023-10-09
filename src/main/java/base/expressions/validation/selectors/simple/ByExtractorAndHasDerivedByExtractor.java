@@ -1,25 +1,43 @@
 package base.expressions.validation.selectors.simple;
 
+import base.components.expression.validation.BasicExpressionSelector;
 import base.expressions.Expression;
-import base.parsing.ExtractorType;
+import base.components.expression.parsing.ExtractorType;
 
-public abstract class ByExtractorAndHasDerivedByExtractor implements SimpleExpressionSelector {
-    private final Class<? extends ExtractorType> exctracterClass;
-    private final Class<? extends ExtractorType> extractorOfDerivedClass;
+public abstract class ByExtractorAndHasDerivedByExtractor implements BasicExpressionSelector {
+    private final Class<? extends ExtractorType> extractorClass;
+    protected final Class<? extends ExtractorType> extractorOfDerivedClass;
 
-    public ByExtractorAndHasDerivedByExtractor(Class<? extends ExtractorType> exctracterClass, Class<? extends ExtractorType> extractorOfDerivedClass) {
-        this.exctracterClass = exctracterClass;
+    public ByExtractorAndHasDerivedByExtractor(Class<? extends ExtractorType> extractorClass, Class<? extends ExtractorType> extractorOfDerivedClass) {
+        this.extractorClass = extractorClass;
         this.extractorOfDerivedClass = extractorOfDerivedClass;
     }
 
     @Override
     public boolean isSelected(Expression expression) {
-        if (exctracterClass.equals(expression.getExtractorClass())){
-            for (Expression derivedExpression : expression.getDerivedExpressions()) {
-                if (extractorOfDerivedClass.equals(derivedExpression.getExtractorClass())) return true;
-            }
+        return Utilities.extractorMatches(expression, extractorClass) &&
+                Utilities.extractorOfDerivedPresent(expression, extractorOfDerivedClass);
+    }
+
+    public static abstract class WithMatcher extends ByExtractorAndHasDerivedByExtractor{
+        private final StringMatcher stringMatcher;
+        private final StringMatcher derivedStringMatcher;
+
+        public WithMatcher(Class<? extends ExtractorType> extractorClass,
+                           Class<? extends ExtractorType> extractorOfDerivedClass,
+                           StringMatcher stringMatcher,
+                           StringMatcher derivedStringMatcher)
+        {
+            super(extractorClass, extractorOfDerivedClass);
+            this.stringMatcher = stringMatcher;
+            this.derivedStringMatcher = derivedStringMatcher;
         }
 
-        return false;
+        @Override
+        public boolean isSelected(Expression expression) {
+            return super.isSelected(expression) &&
+                    Utilities.expressionMatches(expression, stringMatcher) &&
+                    Utilities.extractorOfDerivedPresentAndItsExpressionMatches(expression, extractorOfDerivedClass, derivedStringMatcher);
+        }
     }
 }

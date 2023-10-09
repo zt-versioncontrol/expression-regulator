@@ -1,5 +1,6 @@
-package base.auditing;
+package base.reporting.deprecated;
 
+@Deprecated
 public class Report {
     public final Class<? extends Auditor> auditorClass;
     public final ReportedObject reportedObject;

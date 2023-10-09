@@ -1,6 +1,6 @@
 package regulators.json.parser.extractors;
 
-import base.parsing.ExpressionArrayExtractor;
+import base.components.expression.parsing.ExpressionArrayExtractor;
 import utility.string.ParsingUtilities;
 import utility.string.SearchingUtilities;
 import utility.structure.Pair;
@@ -24,7 +24,7 @@ public class PropertiesExtractor extends ExpressionArrayExtractor {
 
         List<Integer> unscopedCommas = SearchingUtilities.unscopedIndecisOf(expression, scopes, ",");
 
-        return ParsingUtilities.indexSplit(expression, unscopedCommas);
+        return ParsingUtilities.indexSplit(expression, unscopedCommas).stream().map(String::trim).toList();
     }
 
     @Override

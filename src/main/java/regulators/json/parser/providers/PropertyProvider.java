@@ -1,6 +1,6 @@
 package regulators.json.parser.providers;
 
-import base.parsing.InstanceProvider;
+import base.components.expression.parsing.InstanceProvider;
 import regulators.json.parser.parsedObjects.Property;
 
 public class PropertyProvider implements InstanceProvider {

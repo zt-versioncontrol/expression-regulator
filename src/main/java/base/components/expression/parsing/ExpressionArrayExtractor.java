@@ -1,9 +1,9 @@
-package base.parsing;
+package base.components.expression.parsing;
 
 
 import java.util.List;
 
-public abstract class ExpressionArrayExtractor extends ExtractorType{
+public abstract class ExpressionArrayExtractor implements ExtractorType {
 
     public List<String> extractArrayFromExpression(String expression){
         String normalizedForm = normalize(expression);

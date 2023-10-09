@@ -1,9 +1,10 @@
 package base.expressions.validation.selectors.simple;
 
+import base.components.expression.validation.BasicExpressionSelector;
 import base.expressions.Expression;
-import base.parsing.ExtractorType;
+import base.components.expression.parsing.ExtractorType;
 
-public abstract class ByExtractorOfOrigin implements SimpleExpressionSelector {
+public abstract class ByExtractorOfOrigin implements BasicExpressionSelector {
     private final Class<? extends ExtractorType> extractorClass;
 
     public ByExtractorOfOrigin(Class<? extends ExtractorType> extractorClass) {
@@ -12,8 +13,20 @@ public abstract class ByExtractorOfOrigin implements SimpleExpressionSelector {
 
     @Override
     public boolean isSelected(Expression expression) {
-        if (expression.getOriginalExpression() == null) return false;
+        return Utilities.extractorOfOriginMatches(expression, extractorClass);
+    }
 
-        return extractorClass.equals(expression.getOriginalExpression().getExtractorClass());
+    public static abstract class WithMatcher extends ByExtractorOfOrigin{
+        private final StringMatcher stringMatcher;
+
+        public WithMatcher(Class<? extends ExtractorType> extractorClass, StringMatcher stringMatcher) {
+            super(extractorClass);
+            this.stringMatcher = stringMatcher;
+        }
+
+        @Override
+        public boolean isSelected(Expression expression) {
+            return super.isSelected(expression) && Utilities.originalExpressionMatches(expression, stringMatcher);
+        }
     }
 }

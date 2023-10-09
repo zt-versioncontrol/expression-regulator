@@ -1,8 +1,9 @@
-package base.auditing;
+package base.reporting.deprecated;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Deprecated
 public class AuditingService{
     private final List<ReportedObject> reportedObjects = new ArrayList<>();
 

@@ -1,11 +1,11 @@
 package regulators.json.parser.extractors;
 
-import base.parsing.ExpressionExtractor;
+import base.components.expression.parsing.ExpressionExtractor;
 
-public class JsonNumberExtractor extends ExpressionExtractor {
+public class StringValueExtractor extends ExpressionExtractor {
     @Override
     protected String extract(String expression) {
-        return expression;
+        return expression.substring(1, expression.length()-1);
     }
 
     @Override
