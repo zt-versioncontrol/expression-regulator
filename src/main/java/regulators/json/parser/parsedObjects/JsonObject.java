@@ -9,4 +9,8 @@ import java.util.ArrayList;
 public class JsonObject extends Json{
     @StringDerivedArray(extractor = PropertiesExtractor.class, provider = PropertyProvider.class)
     private ArrayList<Property> properties;
+
+    public ArrayList<Property> getProperties() {
+        return properties;
+    }
 }

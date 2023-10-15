@@ -7,8 +7,8 @@ import java.util.Set;
 public class ProvidersInitializer {
     public Set<InstanceProvider> provide(){
         return Set.of(
-                new JsonBinaryProvider(),
-                new JsonNumberProvider(),
+                new BinaryValueProvider(),
+                new NumberValueProvider(),
                 new JsonProvider(),
                 new PropertyProvider()
         );

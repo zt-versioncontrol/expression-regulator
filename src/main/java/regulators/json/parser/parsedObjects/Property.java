@@ -14,4 +14,13 @@ public class Property {
     @AbstractType
     @StringDerived(extractor = PropertyValueExtractor.class, provider = JsonProvider.class)
     private Json value;
+
+
+    public String getName() {
+        return name;
+    }
+
+    public Json getValue() {
+        return value;
+    }
 }

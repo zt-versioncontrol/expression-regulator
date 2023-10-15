@@ -26,19 +26,19 @@ class ParsingUtilitiesTest {
         String confusedIndicators = "#$abc#$$#$$"; //"#$" right and "#$$" left indicators
         String confusedIndicators2 = "#$abc$#$"; //"#$" right and "$# left" indicators
 
-        Pair<Integer, Integer> scope1 = firstDepthOneScopeBoundaries(simple, "(", ")");
-        Pair<Integer, Integer> scope2 = firstDepthOneScopeBoundaries(multiple, "(", ")");
-        Pair<Integer, Integer> scope3 = firstDepthOneScopeBoundaries(nested, "(", ")");
-        Pair<Integer, Integer> scope4 = firstDepthOneScopeBoundaries(empty, "(", ")");
-        Pair<Integer, Integer> scope5 = firstDepthOneScopeBoundaries(onlyIndicators, "(", ")");
-        Pair<Integer, Integer> scope6 = firstDepthOneScopeBoundaries(noClosing, "(", ")");
-        Pair<Integer, Integer> scope7 = firstDepthOneScopeBoundaries(onlyClosing, "(", ")");
-        Pair<Integer, Integer> scope8 = firstDepthOneScopeBoundaries(unmatchedClosing, "(", ")");
-        Pair<Integer, Integer> scope9 = firstDepthOneScopeBoundaries(longIdicatos, "xxx", "yyy");
-        Pair<Integer, Integer> scope10 = firstDepthOneScopeBoundaries(nestedLongIndicators, "xxx", "yyy");
-        Pair<Integer, Integer> scope11 = firstDepthOneScopeBoundaries(longIndicatorsNoClosing, "xxx", "yyy");
-        Pair<Integer, Integer> scope12 = firstDepthOneScopeBoundaries(confusedIndicators, "#$", "#$$");
-        Pair<Integer, Integer> scope13 = firstDepthOneScopeBoundaries(confusedIndicators2, "#$", "$#");
+        Pair<Integer, Integer> scope1 = firstScopeBoundaries(simple, "(", ")");
+        Pair<Integer, Integer> scope2 = firstScopeBoundaries(multiple, "(", ")");
+        Pair<Integer, Integer> scope3 = firstScopeBoundaries(nested, "(", ")");
+        Pair<Integer, Integer> scope4 = firstScopeBoundaries(empty, "(", ")");
+        Pair<Integer, Integer> scope5 = firstScopeBoundaries(onlyIndicators, "(", ")");
+        Pair<Integer, Integer> scope6 = firstScopeBoundaries(noClosing, "(", ")");
+        Pair<Integer, Integer> scope7 = firstScopeBoundaries(onlyClosing, "(", ")");
+        Pair<Integer, Integer> scope8 = firstScopeBoundaries(unmatchedClosing, "(", ")");
+        Pair<Integer, Integer> scope9 = firstScopeBoundaries(longIdicatos, "xxx", "yyy");
+        Pair<Integer, Integer> scope10 = firstScopeBoundaries(nestedLongIndicators, "xxx", "yyy");
+        Pair<Integer, Integer> scope11 = firstScopeBoundaries(longIndicatorsNoClosing, "xxx", "yyy");
+        Pair<Integer, Integer> scope12 = firstScopeBoundaries(confusedIndicators, "#$", "#$$");
+        Pair<Integer, Integer> scope13 = firstScopeBoundaries(confusedIndicators2, "#$", "$#");
 
         assertEquals(new Pair<>(0, 4), scope1);
         assertEquals(new Pair<>(2, 6), scope2);
@@ -69,17 +69,17 @@ class ParsingUtilitiesTest {
         String confusedIndicators2 = "#$abc#$$ 321#$$"; //"#$" right and "#$$" left indicators
         String confusedIndicators3 = "#$abc$#$123$##$"; //"#$" right and "$# left" indicators
 
-        List<Pair<Integer, Integer>> scope1 = depthOneScopeBoundaries(simple, "(", ")");
-        List<Pair<Integer, Integer>> scope2 = depthOneScopeBoundaries(nested, "(", ")");
-        List<Pair<Integer, Integer>> scope3 = depthOneScopeBoundaries(open, "(", ")");
-        List<Pair<Integer, Integer>> scope4 = depthOneScopeBoundaries(multipleAndOpen, "(", ")");
-        List<Pair<Integer, Integer>> scope5 = depthOneScopeBoundaries(empty, "(", ")");
-        List<Pair<Integer, Integer>> scope6 = depthOneScopeBoundaries(openAndNested, "(", ")");
-        List<Pair<Integer, Integer>> scope7 = depthOneScopeBoundaries(longIndicators, "xxx", "yyy");
-        List<Pair<Integer, Integer>> scope8 = depthOneScopeBoundaries(nestedLongIndicators, "xxx", "yyy");
-        List<Pair<Integer, Integer>> scope9 = depthOneScopeBoundaries(confusedIndicators1, "xxx", "yyy");
-        List<Pair<Integer, Integer>> scope10 = depthOneScopeBoundaries(confusedIndicators2, "#$", "#$$");
-        List<Pair<Integer, Integer>> scope11 = depthOneScopeBoundaries(confusedIndicators3, "#$", "$#");
+        List<Pair<Integer, Integer>> scope1 = scopeBoundaries(simple, "(", ")");
+        List<Pair<Integer, Integer>> scope2 = scopeBoundaries(nested, "(", ")");
+        List<Pair<Integer, Integer>> scope3 = scopeBoundaries(open, "(", ")");
+        List<Pair<Integer, Integer>> scope4 = scopeBoundaries(multipleAndOpen, "(", ")");
+        List<Pair<Integer, Integer>> scope5 = scopeBoundaries(empty, "(", ")");
+        List<Pair<Integer, Integer>> scope6 = scopeBoundaries(openAndNested, "(", ")");
+        List<Pair<Integer, Integer>> scope7 = scopeBoundaries(longIndicators, "xxx", "yyy");
+        List<Pair<Integer, Integer>> scope8 = scopeBoundaries(nestedLongIndicators, "xxx", "yyy");
+        List<Pair<Integer, Integer>> scope9 = scopeBoundaries(confusedIndicators1, "xxx", "yyy");
+        List<Pair<Integer, Integer>> scope10 = scopeBoundaries(confusedIndicators2, "#$", "#$$");
+        List<Pair<Integer, Integer>> scope11 = scopeBoundaries(confusedIndicators3, "#$", "$#");
 
         assertIterableEquals(List.of(new Pair<>(0, 4)), scope1);
         assertIterableEquals(List.of(new Pair<>(3, 12), new Pair<>(16, 20)), scope2);

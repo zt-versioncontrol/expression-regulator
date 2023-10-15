@@ -5,7 +5,7 @@ import regulators.json.parser.parsedObjects.Property;
 
 public class PropertyProvider implements InstanceProvider {
     @Override
-    public Object provide(String expression) {
+    public Property provide(String expression) {
         return new Property();
     }
 }

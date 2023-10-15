@@ -13,6 +13,6 @@ public class JsonNullValidator extends BasicExpressionValidator {
     @Override
     public boolean validate(Expression expression) {
 
-        return expression.getExpressionString().equalsIgnoreCase("null");
+        return expression.getExpressionString().equals("null");
     }
 }

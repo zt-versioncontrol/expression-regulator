@@ -8,5 +8,9 @@ import regulators.json.parser.providers.JsonProvider;
 public class JsonRoot {
     @AbstractType
     @StringDerived(extractor = JsonExtractor.class, provider = JsonProvider.class)
-    Json json;
+    private Json json;
+
+    public Json getJson() {
+        return json;
+    }
 }

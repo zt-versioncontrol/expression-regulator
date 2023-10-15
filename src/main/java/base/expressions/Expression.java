@@ -37,7 +37,7 @@ public class Expression {
         return extractorClass;
     }
 
-    public Iterable<Expression> getDerivedExpressions() {
+    public List<Expression> getDerivedExpressions() {
         return derivedExpressions;
     }
 

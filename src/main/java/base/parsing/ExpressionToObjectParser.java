@@ -111,7 +111,7 @@ public class ExpressionToObjectParser {
                     derivedExpression.addDerivedExpression(new Expression(object.getClass().getTypeName(), _ConcreteTypeExtractor.class));
                 }
                 rootExpression.addDerivedExpression(derivedExpression);
-                parse(object, expressionString, derivedExpression);
+                parse(object, extractedExpressionString, derivedExpression);
                 providedObjects.add(object);
             }
 

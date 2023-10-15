@@ -11,4 +11,8 @@ public class JsonArray extends Json{
     @AbstractType
     @StringDerivedArray(extractor = JsonArrayElementsExtractor.class, provider = JsonProvider.class)
     private ArrayList<Json> array;
+
+    public ArrayList<Json> getArray() {
+        return array;
+    }
 }

@@ -10,6 +10,6 @@ public class StringValueExtractor extends ExpressionExtractor {
 
     @Override
     protected String normalize(String expression) {
-        return expression.trim();
+        return expression;
     }
 }

@@ -14,6 +14,7 @@ public class JsonObjectValidator extends BasicExpressionValidator {
     public boolean validate(Expression expression) {
         String expressionString = expression.getExpressionString();
 
+        if (expressionString.length() < 2) return false;
         return expressionString.charAt(0) == '{' && expressionString.charAt(expressionString.length()-1) == '}';
     }
 }

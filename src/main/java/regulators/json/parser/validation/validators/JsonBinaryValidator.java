@@ -11,8 +11,8 @@ public class JsonBinaryValidator extends BasicExpressionValidator {
 
     @Override
     public boolean validate(Expression expression) {
-        String expressioString = expression.getExpressionString();
+        String expressionString = expression.getExpressionString();
 
-        return expressioString.equalsIgnoreCase("true") || expressioString.equalsIgnoreCase("false");
+        return expressionString.equals("true") || expressionString.equals("false");
     }
 }

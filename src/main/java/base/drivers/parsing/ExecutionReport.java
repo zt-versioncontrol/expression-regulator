@@ -10,10 +10,10 @@ import java.util.Map;
 public class ExecutionReport {
     private final Exception thrownException;
 
-    private final String rootString;
-    private final Expression expressionTree;
-    private final Map<Class<? extends BasicExpressionSelector>, List<Expression>> selectedExpressions;
-    private final List<Invalidation> invalidations;
+    public final String rootString;
+    public  final Expression expressionTree;
+    public final Map<Class<? extends BasicExpressionSelector>, List<Expression>> selectedExpressions;
+    public final List<Invalidation> invalidations;
 
 
 

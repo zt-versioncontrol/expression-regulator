@@ -13,6 +13,10 @@ public class PropertyNameValidator extends BasicExpressionValidator {
     @Override
     public boolean validate(Expression expression) {
         String expressionString = expression.getExpressionString();
+        if (expressionString.length() < 2) return false;
+        if (expressionString.charAt(0) != '\"' || expressionString.charAt(expressionString.length()-1) != '\"') return false;
+
+        expressionString = expressionString.substring(1, expressionString.length()-1);
 
         if (expressionString.isBlank()) return false;
         if (!(isAlphabet(expressionString.charAt(0)) || expressionString.charAt(0)=='$' || expressionString.charAt(0)=='_')) return false;

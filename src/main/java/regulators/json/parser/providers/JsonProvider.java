@@ -5,14 +5,13 @@ import regulators.json.parser.parsedObjects.*;
 
 public class JsonProvider implements InstanceProvider {
     @Override
-    public Object provide(String expression) {
+    public Json provide(String expression) {
         if (expression.startsWith("{") && expression.endsWith("}")) return new JsonObject();
         else if (expression.startsWith("[") && expression.endsWith("]")) return new JsonArray();
-        else if (expression.startsWith("\"") && expression.endsWith("\"")) return new JsonString();
-        else if (expression.startsWith("'") && expression.endsWith("'")) return new JsonString();
-        else if (expression.equalsIgnoreCase("true") || expression.equalsIgnoreCase("false")) return new JsonBinary();
+        else if (expression.length() >=2 && expression.startsWith("\"") && expression.endsWith("\"")) return new JsonString();
+        else if (expression.equals("true") || expression.equals("false")) return new JsonBinary();
         else if (isNumber(expression)) return new JsonNumber();
-        else if (expression.equalsIgnoreCase("null")) return new JsonNull();
+        else if (expression.equals("null")) return new JsonNull();
         return new JsonInvalid();
     }
 

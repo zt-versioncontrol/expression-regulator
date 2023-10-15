@@ -9,13 +9,13 @@ import base.parsing.ParsingUtilitiesService;
 
 import java.util.*;
 
-
+// TODO: 10/12/2023 see if unit test is required
 public class ParsingDriver<T> {
     private final ReportingService reportingService;
 
     private final Set<BasicExpressionSelector> selectors = new HashSet<>();
     private final Set<BasicExpressionValidator> validators = new HashSet<>();
-    private Map<Class<? extends BasicExpressionSelector>, List<Expression>> selectedExpressions;
+    private final Map<Class<? extends BasicExpressionSelector>, List<Expression>> selectedExpressions = new HashMap<>();
 
     private final ExpressionToObjectParser parser;
 
@@ -38,7 +38,6 @@ public class ParsingDriver<T> {
                 parsingUtilitiesService.addInstanceProvider(provider);
             }else if(component instanceof BasicExpressionSelector selector){
                 selectors.add(selector);
-                selectedExpressions.put(selector.getClass(), new ArrayList<>());
             }else if(component instanceof BasicExpressionValidator validator){
                 validators.add(validator);
             }
@@ -50,7 +49,7 @@ public class ParsingDriver<T> {
 
     protected T execute(T target, String expression){
 
-        selectedExpressions = new HashMap<>();
+        selectors.forEach(selector -> selectedExpressions.put(selector.getClass(), new ArrayList<>()));
 
         Expression expressionTree;
         try {
