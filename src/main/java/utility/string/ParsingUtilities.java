@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+// TODO: 10/17/2023 writte unit tests for all methods 
 public class ParsingUtilities {
     private ParsingUtilities() {}
 
@@ -41,6 +42,7 @@ public class ParsingUtilities {
     //maximum of 1 unbound scope and must last element the of returned list
     //returns empty list if no scopes were found
     //ignores scope closing indicators if they were not preceded by opening indicators
+    //returned scopes are sorted
     public static List<Pair<Integer, Integer>> scopeBoundaries(String expression, String startIndicator, String endIndicator){
         List<Pair<Integer, Integer>> scopeBoundaries = new ArrayList<>();
         Pair<Integer, Integer> nextScopeBoundaries = firstScopeBoundaries(expression, startIndicator, endIndicator);
@@ -116,6 +118,8 @@ public class ParsingUtilities {
         return boundaries;
     }
 
+    //split a string according to given indices, in ascending order
+    //does not include characters at split indices
     public static List<String> indexSplit(String string, List<Integer> indices){
         if (indices.isEmpty()) return List.of(string);
 

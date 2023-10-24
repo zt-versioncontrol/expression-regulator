@@ -78,7 +78,7 @@ public class ExpressionToObjectParser {
                     derivedExpression.addDerivedExpression(new Expression(fieldObject.getClass().getTypeName(), _ConcreteTypeExtractor.class));
                 }
                 rootExpression.addDerivedExpression(derivedExpression);
-                parse(fieldObject, extractedExpressionString, derivedExpression);
+                if (fieldObject != null) parse(fieldObject, extractedExpressionString, derivedExpression);
                 stringDerivedField.set(target, fieldObject);
             }catch (IllegalArgumentException exception){
                 throw new IncompatibleInstanceProviderException();
@@ -111,7 +111,7 @@ public class ExpressionToObjectParser {
                     derivedExpression.addDerivedExpression(new Expression(object.getClass().getTypeName(), _ConcreteTypeExtractor.class));
                 }
                 rootExpression.addDerivedExpression(derivedExpression);
-                parse(object, extractedExpressionString, derivedExpression);
+                if (object != null) parse(object, extractedExpressionString, derivedExpression);
                 providedObjects.add(object);
             }
 
@@ -189,6 +189,6 @@ public class ExpressionToObjectParser {
     public static class ExtractorNotFoundException extends RuntimeException{}
     public static class InstanceProviderNotFoundException extends RuntimeException{}
     public static class IncompatibleInstanceProviderException extends RuntimeException{}
-    public static class FieldIsNotArrayListException extends RuntimeException{};
-    public static class FieldHasNoStringConstructorException extends RuntimeException{};
+    public static class FieldIsNotArrayListException extends RuntimeException{}
+    public static class FieldHasNoStringConstructorException extends RuntimeException{}
 }
