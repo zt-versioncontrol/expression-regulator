@@ -7,9 +7,9 @@ import regulators.java.parser.parsedObjects.types.ENum;
 import regulators.java.parser.parsedObjects.types.INterface;
 import utility.string.ManipulationUtilities;
 
-public class ClassMemberProvider implements InstanceProvider {
+public class EnumMemberProvider implements InstanceProvider {
     @Override
-    public ClassMember provide(String expression) {
+    public EnumMember provide(String expression) {
         //this procedure must always produce correct result given a valid expression
         //otherwise it may produce incorrect results but invalidations are caught later during extraction
         expression = ManipulationUtilities.foldScopes(expression, "{", "}", " {} ");
@@ -26,13 +26,7 @@ public class ClassMemberProvider implements InstanceProvider {
         if (expression.equals("static {}")) return new StaticBlock(expression);
         if (expression.equals("{}")) return new InitializationBlock(expression);
 
-        if (!expression.contains("=") && expression.contains("()")){
-            int parametersScope = expression.indexOf("()");
-            int methodScope = expression.indexOf("{}");
-
-            if (methodScope == -1 || methodScope < parametersScope) return new AbstractMethod();
-            return new MEthod();
-        }
+        if (!expression.contains("=") && expression.contains("()")) return new MEthod();
 
         return new FIeld();
     }

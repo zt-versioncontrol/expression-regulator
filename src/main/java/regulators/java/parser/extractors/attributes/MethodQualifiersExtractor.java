@@ -19,7 +19,7 @@ public class MethodQualifiersExtractor extends ExpressionArrayExtractor {
                     if (!expression.contains("{")) return true;
                     return expression.indexOf("(") < expression.indexOf("{");
                 }
-        ), "");
+        ), List.of());
     }
 
     @Override

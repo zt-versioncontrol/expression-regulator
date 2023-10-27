@@ -1,4 +1,4 @@
-package regulators.java.parser.parsedObjects.members;
+package regulators.java.parser.extractors.attributes;
 
 import base.components.expression.parsing.ExpressionArrayExtractor;
 import utility.string.ManipulationUtilities;
@@ -24,13 +24,11 @@ public class MethodExceptionsExtractor extends ExpressionArrayExtractor {
                     return scopes.size() > 0 && scopes.get(0).second != -1;
                 }
                 ),
-                "");
+                List.of());
     }
 
     @Override
     protected List<String> extract(String expression) {
-        if (expression.isBlank()) return List.of();
-
         List<Pair<Integer, Integer>> scopes = ParsingUtilities.scopeBoundaries(expression, "(", ")");
         expression = expression.substring(scopes.get(0).second + ")".length());
         expression = expression.trim();

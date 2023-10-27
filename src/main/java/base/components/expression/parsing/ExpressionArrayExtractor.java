@@ -6,28 +6,27 @@ import java.util.List;
 
 public abstract class ExpressionArrayExtractor implements ExtractorType {
     private final List<ExpressionAssumption> assumptions = new ArrayList<>();
-    private final String fallBackExpression;
+    private final List<String> fallBackExpressions;
 
     public ExpressionArrayExtractor() {
-        this.fallBackExpression = null;
+        this.fallBackExpressions = null;
     }
 
     public ExpressionArrayExtractor(List<ExpressionAssumption> assumptions){
         this.assumptions.addAll(assumptions);
-        fallBackExpression = null;
+        fallBackExpressions = null;
     }
 
-    public ExpressionArrayExtractor(List<ExpressionAssumption> assumptions, String fallBackExpression) {
+    public ExpressionArrayExtractor(List<ExpressionAssumption> assumptions, List<String> fallBackExpressions) {
         this.assumptions.addAll(assumptions);
-        this.fallBackExpression = fallBackExpression;
+        this.fallBackExpressions = fallBackExpressions;
     }
 
     public List<String> extractArrayFromExpression(String expression)throws ExpressionAssumption.AssumptionViolationException {
         for (ExpressionAssumption assumption : assumptions) {
             if (!assumption.isSatisfied(expression)){
-                if (fallBackExpression == null) throw new ExpressionAssumption.AssumptionViolationException();
-                expression = fallBackExpression;
-                break;
+                if (fallBackExpressions == null) throw new ExpressionAssumption.AssumptionViolationException();
+                return fallBackExpressions;
             }
         }
 

@@ -15,9 +15,10 @@ public class GenericTypesSelectorsExtractor extends ExpressionArrayExtractor {
                 expression -> {
                     List<Pair<Integer, Integer>> scopes = ParsingUtilities.scopeBoundaries(expression, "<", ">");
                     if (scopes.isEmpty()) return true;
-                    return scopes.size() == 1;
+                    if(scopes.size() != 1) return false;
+                    return scopes.get(0).second != expression.length()-1;
                 }
-        ), "<>");
+        ), List.of(""));
     }
 
     @Override
@@ -26,8 +27,6 @@ public class GenericTypesSelectorsExtractor extends ExpressionArrayExtractor {
 
         //scopes is not empty in case of fallback expression
         if (scopes.isEmpty()) return List.of();
-        //unbound scope yields invalid expression
-        if (scopes.get(0).second == -1) return List.of("");
 
         expression = expression.substring(scopes.get(0).first + "<".length(), scopes.get(0).second).trim();
 

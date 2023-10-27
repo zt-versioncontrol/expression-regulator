@@ -26,8 +26,7 @@ public abstract class ExpressionExtractor implements ExtractorType {
         for (ExpressionAssumption assumption : assumptions) {
             if (!assumption.isSatisfied(expression)){
                 if (fallBackExpression == null) throw new ExpressionAssumption.AssumptionViolationException();
-                expression = fallBackExpression;
-                break;
+                return fallBackExpression;
             }
         }
 

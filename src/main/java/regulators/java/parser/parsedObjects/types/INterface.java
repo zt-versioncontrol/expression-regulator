@@ -1,24 +1,37 @@
 package regulators.java.parser.parsedObjects.types;
 
-import regulators.java.parser.parsedObjects.attributes.GenericType;
-import regulators.java.parser.parsedObjects.attributes.TypeSelector;
-import regulators.java.parser.parsedObjects.members.AbstractMethod;
-import regulators.java.parser.parsedObjects.members.FIeld;
-import regulators.java.parser.parsedObjects.members.MEthod;
+import base.parsing.StringConstructed;
+import base.parsing.StringConstructedArray;
+import base.parsing.StringDerived;
+import base.parsing.StringDerivedArray;
+import regulators.java.parser.extractors.attributes.ExtendedInterfacesExtractor;
+import regulators.java.parser.extractors.attributes.InterfaceGenericsExtractor;
+import regulators.java.parser.extractors.attributes.InterfaceIdentifierExtractor;
+import regulators.java.parser.extractors.attributes.InterfaceQualifiersExtractor;
+import regulators.java.parser.extractors.members.ClassMembersExtractor;
+import regulators.java.parser.parsedObjects.attributes.ExtendedInterfaces;
+import regulators.java.parser.parsedObjects.attributes.Generics;
+import regulators.java.parser.parsedObjects.members.*;
+import regulators.java.parser.providers.ExtendedInterfacesProvider;
+import regulators.java.parser.providers.InterfaceMemberProvider;
+import regulators.java.parser.providers.GenericsProvider;
 
 import java.util.ArrayList;
 
-public class INterface extends TypeDefinition {
+public class INterface implements TypeDefinition, ClassMember, InterfaceMember, EnumMember {
+
+    @StringConstructed(extractor = InterfaceIdentifierExtractor.class)
     private String identifier;
+
+    @StringConstructedArray(extractor = InterfaceQualifiersExtractor.class, of = String.class)
     private ArrayList<String> qualifiers;
-    private ArrayList<GenericType> genericTypes;
-    private ArrayList<TypeSelector> inheritedTypes;
 
-    private ArrayList<FIeld> fIelds;
-    private ArrayList<AbstractMethod> abstractMethods;
-    private ArrayList<MEthod> methods;
+    @StringDerived(extractor = InterfaceGenericsExtractor.class, provider = GenericsProvider.class)
+    private Generics generics;
 
-    private ArrayList<CLass> cLasses;
-    private ArrayList<INterface> interfaces;
-    private ArrayList<ENum> enums;
+    @StringDerived(extractor = ExtendedInterfacesExtractor.class, provider = ExtendedInterfacesProvider.class)
+    private ExtendedInterfaces extendedInterfaces;
+
+    @StringDerivedArray(extractor = ClassMembersExtractor.class, provider = InterfaceMemberProvider.class)
+    private ArrayList<InterfaceMember> members;
 }

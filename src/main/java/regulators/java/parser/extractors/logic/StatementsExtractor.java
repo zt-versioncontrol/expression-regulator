@@ -18,15 +18,11 @@ public class StatementsExtractor extends ExpressionArrayExtractor {
             List<Pair<Integer, Integer>> definitionScopes = ParsingUtilities.scopeBoundaries(expression, "{", "}");
             if (definitionScopes.size() != 1) return false;
             return definitionScopes.get(0).second == expression.length() - 1;
-        }), "");
+        }), List.of(""));
     }
 
     @Override
     protected List<String> extract(String expression) {
-
-        //fallback case return invalid result
-        if (expression.isBlank()) return List.of("");
-
         //cancel the effect of "{" embedded in "()"
         List<Pair<Integer, Integer>> noneIntersectingScopes = ParsingUtilities.noneIntersectedScopeBoundaries(expression, List.of(new Pair<>("{", "}"), new Pair<>("(", ")")), List.of());
         //last scope is function definition according to assumptions

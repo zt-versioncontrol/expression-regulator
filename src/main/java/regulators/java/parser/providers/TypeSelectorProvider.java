@@ -5,7 +5,7 @@ import regulators.java.parser.parsedObjects.attributes.TypeSelector;
 
 public class TypeSelectorProvider implements InstanceProvider {
     @Override
-    public Object provide(String expression) {
+    public TypeSelector provide(String expression) {
         return new TypeSelector();
     }
 }

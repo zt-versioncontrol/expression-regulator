@@ -8,25 +8,30 @@ import utility.structure.Pair;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClassMembersExtractor extends ExpressionArrayExtractor {
-    public ClassMembersExtractor() {
+public class EnumMembersExtractor extends ExpressionArrayExtractor {
+
+    public EnumMembersExtractor() {
         super(List.of(
                 expression -> {
-                    var scopes = ParsingUtilities.scopeBoundaries(expression, "{", "}");
+                    List<Pair<Integer,Integer>> scopes = ParsingUtilities.scopeBoundaries(expression, "{", "}");
                     if (scopes.size() != 1) return false;
                     return scopes.get(0).second == expression.length()-1;
-                }),
-                List.of(""));
+                }
+        ), List.of(""));
     }
 
     @Override
     protected List<String> extract(String expression) {
         List<Pair<Integer, Integer>> scopes = ParsingUtilities.scopeBoundaries(expression, "{", "}");
         expression = expression.substring(scopes.get(0).first + "{".length(), scopes.get(0).second);
+        int firstSemicolon = expression.indexOf(';');
+
+        if (firstSemicolon == -1) return List.of();
+        expression = expression.substring(firstSemicolon + ";".length());
+
 
 
         List<Pair<Integer, Integer>> nestedScopes = ParsingUtilities.scopeBoundaries(expression, "{", "}");
-
         int expressionLength = expression.length();
         List<Integer> unscopedSemiclones = SearchingUtilities.unscopedIndecisOf(expression, nestedScopes, ";");
         List<Integer> scopesEnds = nestedScopes.stream().map(scope-> {

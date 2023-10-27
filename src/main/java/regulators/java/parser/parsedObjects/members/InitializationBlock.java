@@ -1,6 +1,10 @@
 package regulators.java.parser.parsedObjects.members;
 
-import regulators.java.parser.parsedObjects.members.ClassMember;
 
-public class InitializationBlock extends ClassMember {
+public class InitializationBlock implements ClassMember, EnumMember {
+    private String block;
+
+    public InitializationBlock(String block) {
+        this.block = block;
+    }
 }

@@ -22,14 +22,11 @@ public class MethodParametersExtractor extends ExpressionArrayExtractor {
                     return scopes.size() > 0 && scopes.get(0).second != -1;
                 }
                 ),
-                "");
+                List.of(""));
     }
 
     @Override
     protected List<String> extract(String expression) {
-        //fallback case yeilds invalid parameter
-        if (expression.isBlank()) return List.of("");
-
         Pair<Integer, Integer> paramettersScope = ParsingUtilities.firstScopeBoundaries(expression, "(", ")");
         expression = expression.substring(paramettersScope.first+1, paramettersScope.second);
 

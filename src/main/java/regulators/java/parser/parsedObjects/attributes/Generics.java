@@ -6,7 +6,7 @@ import regulators.java.parser.providers.GenericTypeProvidor;
 
 import java.util.ArrayList;
 
-public class ClassGenerics {
+public class Generics {
 
     @StringDerivedArray(extractor = GenericTypesExtractor.class, provider = GenericTypeProvidor.class)
     private ArrayList<GenericType> genericTypes;

@@ -1,4 +1,4 @@
 package regulators.java.parser.parsedObjects.members;
 
-public interface ClassMember {
+public interface EnumMember {
 }
