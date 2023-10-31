@@ -1,7 +1,7 @@
 package regulators.java.parser.providers;
 
 import base.components.expression.parsing.InstanceProvider;
-import regulators.java.parser.parsedObjects.attributes.Generics;
+import regulators.java.parser.parsedObjects.members.Generics;
 
 public class GenericsProvider implements InstanceProvider {
     @Override

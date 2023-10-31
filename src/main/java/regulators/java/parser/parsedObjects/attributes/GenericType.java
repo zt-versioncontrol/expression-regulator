@@ -2,8 +2,8 @@ package regulators.java.parser.parsedObjects.attributes;
 
 import base.parsing.StringConstructed;
 import base.parsing.StringDerived;
-import regulators.java.parser.extractors.GenericTypeIdentifierExtractor;
-import regulators.java.parser.extractors.attributes.TypeBoundExtractor;
+import regulators.java.parser.extractors.attributes.GenericTypeIdentifierExtractor;
+import regulators.java.parser.extractors.associations.TypeBoundExtractor;
 import regulators.java.parser.providers.TypeBoundProvider;
 
 public class GenericType {

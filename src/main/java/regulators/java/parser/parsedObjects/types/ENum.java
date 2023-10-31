@@ -5,11 +5,11 @@ import base.parsing.StringConstructedArray;
 import base.parsing.StringDerived;
 import base.parsing.StringDerivedArray;
 import regulators.java.parser.extractors.attributes.EnumIdentifierExtractor;
-import regulators.java.parser.extractors.attributes.EnumImplementedInterfacesExtractor;
-import regulators.java.parser.extractors.attributes.EnumQuailifiersExtractor;
+import regulators.java.parser.extractors.associations.EnumImplementedInterfacesExtractor;
+import regulators.java.parser.extractors.attributes.EnumQualifiersExtractor;
 import regulators.java.parser.extractors.members.EnumConstantsExtractor;
 import regulators.java.parser.extractors.members.EnumMembersExtractor;
-import regulators.java.parser.parsedObjects.attributes.ImplementedInterfaces;
+import regulators.java.parser.parsedObjects.associations.ImplementedInterfaces;
 import regulators.java.parser.parsedObjects.members.ClassMember;
 import regulators.java.parser.parsedObjects.members.EnumMember;
 import regulators.java.parser.parsedObjects.members.InterfaceMember;
@@ -23,7 +23,7 @@ public class ENum implements TypeDefinition, ClassMember, InterfaceMember, EnumM
     @StringConstructed(extractor = EnumIdentifierExtractor.class)
     private String identifier;
 
-    @StringConstructedArray(extractor = EnumQuailifiersExtractor.class, of = String.class)
+    @StringConstructedArray(extractor = EnumQualifiersExtractor.class, of = String.class)
     private ArrayList<String> qualifiers;
 
     @StringDerived(extractor = EnumImplementedInterfacesExtractor.class, provider = ImplementedInterfacesProvider.class)

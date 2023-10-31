@@ -1,4 +1,4 @@
-package regulators.java.parser.extractors;
+package regulators.java.parser.extractors.associations;
 
 import base.components.expression.parsing.ExpressionExtractor;
 import utility.string.ManipulationUtilities;
@@ -7,11 +7,12 @@ import utility.structure.Pair;
 
 import java.util.List;
 
-public class SelectorIdentifierExtractor extends ExpressionExtractor {
+public class SelectedTypeIdentifierExtractor extends ExpressionExtractor {
 
-    public SelectorIdentifierExtractor() {
+    public SelectedTypeIdentifierExtractor() {
         super(List.of(
                 expression -> {
+                    expression = expression.trim();
                     List<Pair<Integer, Integer>> scopes = ParsingUtilities.scopeBoundaries(expression, "<", ">");
                     if (scopes.size() == 0) return true;
                     if (scopes.size() > 1) return false;

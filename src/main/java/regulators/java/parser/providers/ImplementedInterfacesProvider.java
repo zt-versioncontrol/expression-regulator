@@ -1,7 +1,7 @@
 package regulators.java.parser.providers;
 
 import base.components.expression.parsing.InstanceProvider;
-import regulators.java.parser.parsedObjects.attributes.ImplementedInterfaces;
+import regulators.java.parser.parsedObjects.associations.ImplementedInterfaces;
 
 public class ImplementedInterfacesProvider implements InstanceProvider {
     @Override

@@ -22,7 +22,7 @@ public class ClassMembersExtractor extends ExpressionArrayExtractor {
     @Override
     protected List<String> extract(String expression) {
         List<Pair<Integer, Integer>> scopes = ParsingUtilities.scopeBoundaries(expression, "{", "}");
-        expression = expression.substring(scopes.get(0).first + "{".length(), scopes.get(0).second);
+        expression = expression.substring(scopes.get(0).first + "{".length(), scopes.get(0).second).trim();
 
 
         List<Pair<Integer, Integer>> nestedScopes = ParsingUtilities.scopeBoundaries(expression, "{", "}");

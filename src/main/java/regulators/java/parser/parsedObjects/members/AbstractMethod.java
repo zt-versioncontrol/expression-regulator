@@ -4,7 +4,7 @@ import base.parsing.StringConstructed;
 import base.parsing.StringConstructedArray;
 import base.parsing.StringDerived;
 import base.parsing.StringDerivedArray;
-import regulators.java.parser.extractors.attributes.MethodExceptionsExtractor;
+import regulators.java.parser.extractors.associations.MethodExceptionsExtractor;
 import regulators.java.parser.extractors.attributes.MethodIdentifierExtractor;
 import regulators.java.parser.extractors.attributes.MethodQualifiersExtractor;
 import regulators.java.parser.extractors.attributes.MethodTypeExtractor;

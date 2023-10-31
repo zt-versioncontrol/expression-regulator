@@ -1,4 +1,4 @@
-package regulators.java.parser.extractors.attributes;
+package regulators.java.parser.extractors.associations;
 
 import base.components.expression.parsing.ExpressionExtractor;
 import utility.string.ManipulationUtilities;
@@ -8,7 +8,7 @@ import utility.structure.Pair;
 
 import java.util.List;
 
-public class superClassExtractor extends ExpressionExtractor {
+public class SuperClassExtractor extends ExpressionExtractor {
     @Override
     protected String extract(String expression) {
         List<Pair<Integer, Integer>> scopes = ParsingUtilities.scopeBoundaries(expression, "<", ">");
@@ -16,7 +16,7 @@ public class superClassExtractor extends ExpressionExtractor {
         List<Integer> unscopedImplements = SearchingUtilities.unscopedIndecisOf(expression, scopes, " implements ");
 
         Integer firstExtends = unscopedExtends.isEmpty()? null : unscopedExtends.get(0);
-        Integer firstImplements = unscopedExtends.isEmpty()? null: unscopedImplements.get(0);
+        Integer firstImplements = unscopedImplements.isEmpty()? null: unscopedImplements.get(0);
 
         if (firstExtends == null) return "";
         if (firstImplements != null && firstExtends > firstImplements) return "";

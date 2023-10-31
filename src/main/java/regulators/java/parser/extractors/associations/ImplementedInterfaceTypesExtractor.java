@@ -1,4 +1,4 @@
-package regulators.java.parser.extractors;
+package regulators.java.parser.extractors.associations;
 
 import base.components.expression.parsing.ExpressionArrayExtractor;
 import utility.string.ParsingUtilities;
@@ -7,12 +7,12 @@ import utility.structure.Pair;
 
 import java.util.List;
 
-public class ExtendedInterfaceTypesExtractor extends ExpressionArrayExtractor {
+public class ImplementedInterfaceTypesExtractor extends ExpressionArrayExtractor {
     @Override
     protected List<String> extract(String expression) {
-        if (!expression.startsWith("extends ")) return List.of("");
+        if (!expression.startsWith("implements ")) return List.of("");
 
-        expression = expression.substring("extends ".length());
+        expression = expression.substring("implements ".length());
 
         List<Pair<Integer, Integer>> scopes = ParsingUtilities.scopeBoundaries(expression, "<", ">");
         List<Integer> unscopedCommas = SearchingUtilities.unscopedIndecisOf(expression, scopes, ",");

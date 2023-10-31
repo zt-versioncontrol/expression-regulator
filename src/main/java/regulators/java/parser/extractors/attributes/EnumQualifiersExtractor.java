@@ -5,7 +5,7 @@ import utility.string.ManipulationUtilities;
 
 import java.util.List;
 
-public class EnumQuailifiersExtractor extends ExpressionArrayExtractor {
+public class EnumQualifiersExtractor extends ExpressionArrayExtractor {
 
     @Override
     protected List<String> extract(String expression) {

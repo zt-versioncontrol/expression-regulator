@@ -30,19 +30,11 @@ public class MethodParametersExtractor extends ExpressionArrayExtractor {
         Pair<Integer, Integer> paramettersScope = ParsingUtilities.firstScopeBoundaries(expression, "(", ")");
         expression = expression.substring(paramettersScope.first+1, paramettersScope.second);
 
+        if (expression.isBlank()) return List.of();
+
         List<Pair<Integer, Integer>> genericScopes = ParsingUtilities.scopeBoundaries(expression, "<", ">");
         List<Integer> unscopedCommas = SearchingUtilities.unscopedIndecisOf(expression, genericScopes, ",");
 
         return ParsingUtilities.indexSplit(expression, unscopedCommas).stream().map(String::trim).toList();
-    }
-
-    @Override
-    protected String normalize(String expression) {
-        //fallback case
-        if (expression.isBlank()) return expression;
-
-        Pair<Integer, Integer> parametersScope = ParsingUtilities.firstScopeBoundaries(expression, "(", ")");
-        //empty scope is valid, empty expression is not valid
-        return expression.substring(0, parametersScope.second+1);
     }
 }

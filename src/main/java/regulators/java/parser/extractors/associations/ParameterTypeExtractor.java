@@ -1,19 +1,20 @@
-package regulators.java.parser.extractors.attributes;
+package regulators.java.parser.extractors.associations;
 
 import base.components.expression.parsing.ExpressionExtractor;
 import utility.string.ManipulationUtilities;
 import utility.string.ParsingUtilities;
 import utility.structure.Pair;
 
+import javax.swing.plaf.metal.MetalSplitPaneUI;
 import java.util.List;
 
-public class ParameterIdentifierExtractor extends ExpressionExtractor {
+public class ParameterTypeExtractor extends ExpressionExtractor {
     @Override
     protected String extract(String expression) {
         int lastSpace = expression.lastIndexOf(" ");
+        if (lastSpace == -1) return expression;
 
-        if (lastSpace == -1) return "";
-        return expression.substring(lastSpace + " ".length());
+        return expression.substring(0, lastSpace);
     }
 
     @Override

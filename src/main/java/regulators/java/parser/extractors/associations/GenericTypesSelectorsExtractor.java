@@ -1,4 +1,4 @@
-package regulators.java.parser.extractors;
+package regulators.java.parser.extractors.associations;
 
 import base.components.expression.parsing.ExpressionArrayExtractor;
 import base.components.expression.parsing.ExpressionAssumption;
@@ -16,7 +16,7 @@ public class GenericTypesSelectorsExtractor extends ExpressionArrayExtractor {
                     List<Pair<Integer, Integer>> scopes = ParsingUtilities.scopeBoundaries(expression, "<", ">");
                     if (scopes.isEmpty()) return true;
                     if(scopes.size() != 1) return false;
-                    return scopes.get(0).second != expression.length()-1;
+                    return scopes.get(0).second == expression.length()-1;
                 }
         ), List.of(""));
     }
@@ -25,7 +25,6 @@ public class GenericTypesSelectorsExtractor extends ExpressionArrayExtractor {
     protected List<String> extract(String expression) {
         List<Pair<Integer, Integer>> scopes = ParsingUtilities.scopeBoundaries(expression, "<", ">");
 
-        //scopes is not empty in case of fallback expression
         if (scopes.isEmpty()) return List.of();
 
         expression = expression.substring(scopes.get(0).first + "<".length(), scopes.get(0).second).trim();

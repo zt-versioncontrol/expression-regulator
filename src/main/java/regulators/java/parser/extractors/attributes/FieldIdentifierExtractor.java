@@ -1,5 +1,6 @@
 package regulators.java.parser.extractors.attributes;
 
+import base.components.expression.parsing.ExpressionAssumption;
 import base.components.expression.parsing.ExpressionExtractor;
 import utility.string.ManipulationUtilities;
 import utility.string.ParsingUtilities;
@@ -9,6 +10,11 @@ import utility.structure.Pair;
 import java.util.List;
 
 public class FieldIdentifierExtractor extends ExpressionExtractor {
+
+    public FieldIdentifierExtractor() {
+        super(List.of(expression -> expression.endsWith(";")), "");
+    }
+
     @Override
     protected String extract(String expression) {
         List<Pair<Integer, Integer>> scopes = ParsingUtilities.scopeBoundaries(expression, "<", ">");
@@ -19,6 +25,7 @@ public class FieldIdentifierExtractor extends ExpressionExtractor {
         }
 
         List<String> splits = List.of(expression.split("\\s"));
+        if (splits.isEmpty()) return "";
         return splits.get(splits.size()-1);
     }
 

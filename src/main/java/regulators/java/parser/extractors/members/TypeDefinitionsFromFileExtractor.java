@@ -1,4 +1,4 @@
-package regulators.java.parser.extractors;
+package regulators.java.parser.extractors.members;
 
 import base.components.expression.parsing.ExpressionArrayExtractor;
 import utility.string.ParsingUtilities;
@@ -17,7 +17,7 @@ public class TypeDefinitionsFromFileExtractor extends ExpressionArrayExtractor {
         //a scope and every unscoped character before it, until preceding scope end, are part of one expression
         for (Pair<Integer, Integer> scopeBoundaries : typeScopeBoundaries) {
             if (scopeBoundaries.second != -1){
-                derivedExpressions.add(expression.substring(nextExpressionStart, scopeBoundaries.second));
+                derivedExpressions.add(expression.substring(nextExpressionStart, scopeBoundaries.second+1).trim());
                 nextExpressionStart = scopeBoundaries.second+1;
             }else{
                 //if index of scope end indicator is -1 then scope is open and it is the last scope, according to definition of ParsingUtilities.scopeBoundaries

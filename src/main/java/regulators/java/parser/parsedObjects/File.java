@@ -4,9 +4,9 @@ import base.parsing.AbstractType;
 import base.parsing.StringConstructed;
 import base.parsing.StringConstructedArray;
 import base.parsing.StringDerivedArray;
-import regulators.java.parser.extractors.ImportsExtractor;
-import regulators.java.parser.extractors.PackageExtractor;
-import regulators.java.parser.extractors.TypeDefinitionsFromFileExtractor;
+import regulators.java.parser.extractors.members.ImportsExtractor;
+import regulators.java.parser.extractors.members.PackageExtractor;
+import regulators.java.parser.extractors.members.TypeDefinitionsFromFileExtractor;
 import regulators.java.parser.parsedObjects.types.TypeDefinition;
 import regulators.java.parser.providers.TypeDefinitionProvider;
 

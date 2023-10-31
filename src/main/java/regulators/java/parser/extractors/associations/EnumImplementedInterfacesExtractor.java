@@ -1,4 +1,4 @@
-package regulators.java.parser.extractors.attributes;
+package regulators.java.parser.extractors.associations;
 
 import base.components.expression.parsing.ExpressionExtractor;
 import utility.string.ManipulationUtilities;
@@ -14,6 +14,7 @@ public class EnumImplementedInterfacesExtractor extends ExpressionExtractor {
             return "";
         }
 
+        //after enum identifier
         StringBuilder implementedInterfacesBuilder = new StringBuilder();
         for (int i = enumIndex+2; i < splits.size()-1; i++) {
             implementedInterfacesBuilder.append(splits.get(i)).append(" ");

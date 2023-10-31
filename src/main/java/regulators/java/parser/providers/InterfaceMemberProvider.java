@@ -12,6 +12,9 @@ public class InterfaceMemberProvider implements InstanceProvider {
     public InterfaceMember provide(String expression) {
         //this procedure must always produce correct result given a valid expression
         //otherwise it may produce incorrect results but invalidations are caught later during extraction
+
+        if (expression.equals(";")) return new EmptyMember();
+
         expression = ManipulationUtilities.foldScopes(expression, "{", "}", " {} ");
         expression = ManipulationUtilities.foldScopes(expression, "(", ")", " () ");
         expression = ManipulationUtilities.foldScopes(expression, "<", ">", " <> ");

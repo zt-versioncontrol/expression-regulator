@@ -1,4 +1,4 @@
-package regulators.java.parser.extractors;
+package regulators.java.parser.extractors.logic;
 
 import base.components.expression.parsing.ExpressionExtractor;
 import utility.string.ParsingUtilities;
@@ -16,12 +16,11 @@ public class FieldInitializerExtractor extends ExpressionExtractor {
         //no initializer
         if (unscopedEqual.isEmpty()) return "";
 
-        //exclude semicolon
-        expression = expression.substring(unscopedEqual.get(0)+1, expression.length()-1).trim();
+        expression = expression.substring(unscopedEqual.get(0)+1).trim();
 
         //return invalid expression if blank
         if (expression.isBlank()) return "=";
 
-        return expression;
+        return expression.trim();
     }
 }

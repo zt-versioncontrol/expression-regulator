@@ -38,8 +38,12 @@ public class ManipulationUtilities {
         for (Pair<Integer, Integer> scope : scopes) {
             folded.append(expression.substring(start, scope.first));
             folded.append(replacement);
-            start = scope.second+1;
+            //only the last scope might end witht -1
+            if (scope.second == -1) start = -1;
+            else start = scope.second+1;
         }
+
+        if (start != -1) folded.append(expression.substring(start));
 
         return folded.toString();
     }
