@@ -1,7 +1,7 @@
 package regulators.java.parser.providers;
 
 import base.components.expression.parsing.InstanceProvider;
-import regulators.java.parser.parsedObjects.attributes.SuperClass;
+import regulators.java.parser.parsedObjects.associations.SuperClass;
 
 public class SuperClassProvider implements InstanceProvider {
     @Override

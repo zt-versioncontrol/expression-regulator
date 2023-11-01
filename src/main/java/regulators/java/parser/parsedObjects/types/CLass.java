@@ -8,7 +8,7 @@ import regulators.java.parser.extractors.members.ClassGenericsExtractor;
 import regulators.java.parser.extractors.members.ClassMembersExtractor;
 import regulators.java.parser.parsedObjects.members.Generics;
 import regulators.java.parser.parsedObjects.associations.ImplementedInterfaces;
-import regulators.java.parser.parsedObjects.attributes.SuperClass;
+import regulators.java.parser.parsedObjects.associations.SuperClass;
 import regulators.java.parser.parsedObjects.members.ClassMember;
 import regulators.java.parser.parsedObjects.members.EnumMember;
 import regulators.java.parser.parsedObjects.members.InterfaceMember;

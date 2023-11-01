@@ -3,18 +3,16 @@ package regulators.java.parser.parsedObjects.members;
 import base.parsing.StringConstructed;
 import base.parsing.StringConstructedArray;
 import base.parsing.StringDerived;
-import base.parsing.StringDerivedArray;
 import regulators.java.parser.extractors.associations.MethodExceptionsExtractor;
 import regulators.java.parser.extractors.attributes.MethodIdentifierExtractor;
 import regulators.java.parser.extractors.attributes.MethodQualifiersExtractor;
-import regulators.java.parser.extractors.attributes.MethodTypeExtractor;
+import regulators.java.parser.extractors.associations.MethodTypeExtractor;
 import regulators.java.parser.extractors.logic.StatementsExtractor;
+import regulators.java.parser.extractors.members.MethodGenericsExtractor;
 import regulators.java.parser.extractors.members.MethodParametersExtractor;
-import regulators.java.parser.parsedObjects.attributes.TypeSelector;
+import regulators.java.parser.parsedObjects.associations.TypeSelector;
 import regulators.java.parser.parsedObjects.logic.Statement;
-import regulators.java.parser.providers.MethodParameterProvider;
-import regulators.java.parser.providers.StatementProvider;
-import regulators.java.parser.providers.TypeSelectorProvider;
+import regulators.java.parser.providers.GenericsProvider;
 
 import java.util.ArrayList;
 
@@ -23,18 +21,21 @@ public class MEthod implements ClassMember, InterfaceMember, EnumMember {
     @StringConstructedArray(extractor = MethodQualifiersExtractor.class, of = String.class)
     private ArrayList<String> qualifiers;
 
-    @StringDerived(extractor = MethodTypeExtractor.class, provider = TypeSelectorProvider.class)
+    @StringDerived(extractor = MethodGenericsExtractor.class, provider = GenericsProvider.class)
+    private Generics generics;
+
+    @StringConstructed(extractor = MethodTypeExtractor.class)
     private TypeSelector type;
 
     @StringConstructed(extractor = MethodIdentifierExtractor.class)
     private String identifier;
 
-    @StringDerivedArray(extractor = MethodParametersExtractor.class, provider = MethodParameterProvider.class)
+    @StringConstructedArray(extractor = MethodParametersExtractor.class, of = MethodParameter.class)
     private ArrayList<MethodParameter> parameters;
 
     @StringConstructedArray(extractor = MethodExceptionsExtractor.class, of = String.class)
     private ArrayList<String> thrownExpections;
 
-    @StringDerivedArray(extractor = StatementsExtractor.class, provider = StatementProvider.class)
+    @StringConstructedArray(extractor = StatementsExtractor.class, of = Statement.class)
     private ArrayList<Statement> statements;
 }

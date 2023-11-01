@@ -1,7 +1,7 @@
 package regulators.java.parser.providers;
 
 import base.components.expression.parsing.InstanceProvider;
-import regulators.java.parser.parsedObjects.attributes.TypeSelector;
+import regulators.java.parser.parsedObjects.associations.TypeSelector;
 
 public class TypeBoundProvider implements InstanceProvider {
     @Override

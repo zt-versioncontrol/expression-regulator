@@ -12,7 +12,7 @@ class TypeDefinitionsFromFileExtractorTest {
 
     @Test
     void extractArrayFromExpression() {
-        assertIterableEquals(List.of("{1}", "xxx\n{2}", "x{3}", "xxx; \t{4}", "; {5}"),
+        assertIterableEquals(List.of("{1}", "xxx\n{2}", "x{3}", "xxx; \t{4}", "; {5}",";"),
                 extractor.extractArrayFromExpression("a; a; c; {1} xxx\n{2}\n x{3}xxx; \t{4}; {5};"));
 
         assertIterableEquals(List.of(), extractor.extractArrayFromExpression(""));
@@ -20,5 +20,6 @@ class TypeDefinitionsFromFileExtractorTest {
         assertIterableEquals(List.of("{1}", "{2 {3} {4}"), extractor.extractArrayFromExpression("{1} {2 {3} {4}"));
         assertIterableEquals(List.of("} {1}", "{2}"), extractor.extractArrayFromExpression("} {1} {2}"));
         assertIterableEquals(List.of("{{1}{2}}"), extractor.extractArrayFromExpression("{{1}{2}}"));
+        assertIterableEquals(List.of("{1}", "{2}", "abc"), extractor.extractArrayFromExpression("{1}{2} abc"));
     }
 }

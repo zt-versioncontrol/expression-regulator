@@ -1,16 +1,17 @@
 package regulators.java.parser.parsedObjects.members;
 
 import base.parsing.StringConstructed;
-import base.parsing.StringDerived;
 import regulators.java.parser.extractors.attributes.ParameterIdentifierExtractor;
 import regulators.java.parser.extractors.associations.ParameterTypeExtractor;
-import regulators.java.parser.parsedObjects.attributes.TypeSelector;
-import regulators.java.parser.providers.ParameterTypeProvider;
+import regulators.java.parser.parsedObjects.associations.TypeSelector;
 
 public class MethodParameter {
+
+    public MethodParameter(String expression){}
+
     @StringConstructed(extractor = ParameterIdentifierExtractor.class)
     private String identifier;
 
-    @StringDerived(extractor = ParameterTypeExtractor.class, provider = ParameterTypeProvider.class)
+    @StringConstructed(extractor = ParameterTypeExtractor.class)
     private TypeSelector type;
 }

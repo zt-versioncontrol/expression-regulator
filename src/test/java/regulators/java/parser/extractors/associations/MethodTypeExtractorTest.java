@@ -1,4 +1,4 @@
-package regulators.java.parser.extractors.attributes;
+package regulators.java.parser.extractors.associations;
 
 import org.junit.jupiter.api.Test;
 

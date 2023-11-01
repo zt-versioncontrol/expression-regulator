@@ -1,4 +1,4 @@
-package regulators.java.parser.extractors.attributes;
+package regulators.java.parser.extractors.associations;
 
 import base.components.expression.parsing.ExpressionExtractor;
 import utility.string.ManipulationUtilities;

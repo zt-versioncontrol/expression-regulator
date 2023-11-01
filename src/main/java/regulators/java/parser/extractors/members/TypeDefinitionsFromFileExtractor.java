@@ -21,10 +21,13 @@ public class TypeDefinitionsFromFileExtractor extends ExpressionArrayExtractor {
                 nextExpressionStart = scopeBoundaries.second+1;
             }else{
                 //if index of scope end indicator is -1 then scope is open and it is the last scope, according to definition of ParsingUtilities.scopeBoundaries
-                //no need to update nextExpressionStart since this is the last iteration
                 derivedExpressions.add(expression.substring(nextExpressionStart).trim());
+                nextExpressionStart = expression.length();
             }
         }
+
+        //add the remaining characters
+        if (nextExpressionStart != expression.length()) derivedExpressions.add(expression.substring(nextExpressionStart).trim());
 
 
         return derivedExpressions;

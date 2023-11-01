@@ -1,14 +1,12 @@
 package regulators.java.parser.parsedObjects.members;
 
-import base.parsing.StringDerivedArray;
+import base.parsing.StringConstructedArray;
 import regulators.java.parser.extractors.members.GenericTypesExtractor;
-import regulators.java.parser.parsedObjects.attributes.GenericType;
-import regulators.java.parser.providers.GenericTypeProvidor;
 
 import java.util.ArrayList;
 
 public class Generics {
 
-    @StringDerivedArray(extractor = GenericTypesExtractor.class, provider = GenericTypeProvidor.class)
+    @StringConstructedArray(extractor = GenericTypesExtractor.class, of = GenericType.class)
     private ArrayList<GenericType> genericTypes;
 }

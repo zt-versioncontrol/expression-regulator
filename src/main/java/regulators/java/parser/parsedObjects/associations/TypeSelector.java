@@ -1,17 +1,21 @@
-package regulators.java.parser.parsedObjects.attributes;
+package regulators.java.parser.parsedObjects.associations;
 
 import base.parsing.StringConstructed;
-import base.parsing.StringDerivedArray;
+import base.parsing.StringConstructedArray;
 import regulators.java.parser.extractors.associations.GenericTypesSelectorsExtractor;
 import regulators.java.parser.extractors.associations.SelectedTypeIdentifierExtractor;
-import regulators.java.parser.providers.GenericTypeSelectorProvider;
 
 import java.util.ArrayList;
 
 public class TypeSelector {
+
+    public TypeSelector(){}
+
+    public TypeSelector(String expression){}
+
     @StringConstructed(extractor = SelectedTypeIdentifierExtractor.class)
     private String type;
 
-    @StringDerivedArray(extractor = GenericTypesSelectorsExtractor.class, provider = GenericTypeSelectorProvider.class)
+    @StringConstructedArray(extractor = GenericTypesSelectorsExtractor.class, of = TypeSelector.class)
     private ArrayList<TypeSelector> genericTypesSelectors;
 }

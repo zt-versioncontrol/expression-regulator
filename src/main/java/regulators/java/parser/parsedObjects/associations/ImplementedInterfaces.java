@@ -1,13 +1,11 @@
 package regulators.java.parser.parsedObjects.associations;
 
-import base.parsing.StringDerivedArray;
+import base.parsing.StringConstructedArray;
 import regulators.java.parser.extractors.associations.ImplementedInterfaceTypesExtractor;
-import regulators.java.parser.parsedObjects.attributes.TypeSelector;
-import regulators.java.parser.providers.TypeSelectorProvider;
 
 import java.util.ArrayList;
 
 public class ImplementedInterfaces {
-    @StringDerivedArray(extractor = ImplementedInterfaceTypesExtractor.class, provider = TypeSelectorProvider.class)
+    @StringConstructedArray(extractor = ImplementedInterfaceTypesExtractor.class, of = TypeSelector.class)
     private ArrayList<TypeSelector> interfaceSelectors;
 }
