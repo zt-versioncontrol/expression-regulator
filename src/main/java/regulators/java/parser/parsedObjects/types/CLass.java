@@ -1,7 +1,7 @@
 package regulators.java.parser.parsedObjects.types;
 
 import base.parsing.*;
-import regulators.java.parser.extractors.associations.ImplementedInterfacesExtractor;
+import regulators.java.parser.extractors.associations.ClassImplementedInterfacesExtractor;
 import regulators.java.parser.extractors.associations.SuperClassExtractor;
 import regulators.java.parser.extractors.attributes.*;
 import regulators.java.parser.extractors.members.ClassGenericsExtractor;
@@ -32,7 +32,7 @@ public class CLass implements TypeDefinition, ClassMember, InterfaceMember, Enum
     @StringDerived(extractor = SuperClassExtractor.class, provider = SuperClassProvider.class)
     private SuperClass superCLass;
 
-    @StringDerived(extractor = ImplementedInterfacesExtractor.class, provider = ImplementedInterfacesProvider.class)
+    @StringDerived(extractor = ClassImplementedInterfacesExtractor.class, provider = ImplementedInterfacesProvider.class)
     private ImplementedInterfaces implementedInterfaces;
 
     @AbstractType

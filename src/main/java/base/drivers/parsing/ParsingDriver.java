@@ -12,22 +12,31 @@ import java.util.*;
 // TODO: 10/12/2023 see if unit test is required
 public class ParsingDriver<T> {
     private final ReportingService reportingService;
+    private final ExpressionComponentsInitializer componentsInitializer;
 
     private final Set<BasicExpressionSelector> selectors = new HashSet<>();
     private final Set<BasicExpressionValidator> validators = new HashSet<>();
     private final Map<Class<? extends BasicExpressionSelector>, List<Expression>> selectedExpressions = new HashMap<>();
 
-    private final ExpressionToObjectParser parser;
+    private ExpressionToObjectParser parser;
 
     protected ParsingDriver(ExpressionComponentsInitializer componentsInitializer){
         this(componentsInitializer, null);
     }
 
-    protected ParsingDriver(ExpressionComponentsInitializer componentsInitializers, ReportingService reportingService){
+    protected ParsingDriver(ExpressionComponentsInitializer componentsInitializer, ReportingService reportingService){
         this.reportingService = reportingService;
+        this.componentsInitializer = componentsInitializer;
 
-        Set<ExpressionComponent> components = componentsInitializers.initialize();
+
+    }
+
+    private void initialize(){
+        Set<ExpressionComponent> components = componentsInitializer.initialize();
         ParsingUtilitiesService parsingUtilitiesService = new ParsingUtilitiesService();
+        selectors.clear();
+        validators.clear();
+        selectedExpressions.clear();
 
         for (ExpressionComponent component : components) {
             if (component instanceof ExpressionArrayExtractor extractor){
@@ -48,6 +57,7 @@ public class ParsingDriver<T> {
 
 
     protected T execute(T target, String expression){
+        initialize();
 
         selectors.forEach(selector -> selectedExpressions.put(selector.getClass(), new ArrayList<>()));
 

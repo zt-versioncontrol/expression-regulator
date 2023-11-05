@@ -8,7 +8,7 @@ import utility.structure.Pair;
 
 import java.util.List;
 
-public class ImplementedInterfacesExtractor extends ExpressionExtractor {
+public class ClassImplementedInterfacesExtractor extends ExpressionExtractor {
     @Override
     protected String extract(String expression) {
 

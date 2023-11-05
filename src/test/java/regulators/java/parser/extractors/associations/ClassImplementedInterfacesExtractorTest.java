@@ -4,9 +4,9 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ImplementedInterfacesExtractorTest {
+class ClassImplementedInterfacesExtractorTest {
 
-    ImplementedInterfacesExtractor extractor = new ImplementedInterfacesExtractor();
+    ClassImplementedInterfacesExtractor extractor = new ClassImplementedInterfacesExtractor();
 
     @Test
     void extractFromExpression() {
