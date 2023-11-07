@@ -6,13 +6,13 @@ import regulators.java.parser.validation.selectors.aggregate.QualifiersSelector;
 
 import java.util.*;
 
-public class UniqueQualifiersValifator extends BasicExpressionValidator {
+public class UniqueQualifiersValidator extends BasicExpressionValidator {
     //the original expression of a qualifier is used as a key
     private final Map<Expression, Set<String>> uniqueQualifiersMap = new HashMap<>();
 
     private final List<String> mutuallyExclusiveKeywords = List.of("public", "private", "protected");
 
-    protected UniqueQualifiersValifator() {
+    protected UniqueQualifiersValidator() {
         super(QualifiersSelector.class);
     }
 

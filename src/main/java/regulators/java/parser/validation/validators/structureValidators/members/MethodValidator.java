@@ -24,7 +24,7 @@ public class MethodValidator extends BasicExpressionValidator {
         );
 
         if (scopes.size() != 2) return false;
-        if (expressionString.charAt(scopes.get(0).first) != '(' || expressionString.charAt(scopes.get(1).second) != '{') return false;
+        if (expressionString.charAt(scopes.get(0).first) != '(' || expressionString.charAt(scopes.get(1).first) != '{') return false;
         if (scopes.get(1).second != expressionString.length()-1) return false;
 
         return true;

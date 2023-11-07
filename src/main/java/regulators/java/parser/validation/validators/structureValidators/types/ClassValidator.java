@@ -19,7 +19,7 @@ public class ClassValidator extends BasicExpressionValidator {
         String expressionString = expression.getExpressionString();
         List<Pair<Integer,Integer>> scopes = ParsingUtilities.scopeBoundaries(expressionString, "{", "}");
 
-        if (scopes.size() != 1 && scopes.get(0).second != expressionString.length()) return false;
+        if (scopes.size() != 1 || scopes.get(0).second != expressionString.length()-1) return false;
 
         String folded = ManipulationUtilities.foldScopes(expressionString, "{", "}", "");
         folded = ManipulationUtilities.foldScopes(folded, "<", ">", "");

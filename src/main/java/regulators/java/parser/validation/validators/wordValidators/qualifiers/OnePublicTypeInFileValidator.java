@@ -13,7 +13,7 @@ public class OnePublicTypeInFileValidator extends BasicExpressionValidator {
 
     @Override
     public boolean validate(Expression expression) {
-        if (publicEncountered) return false;
+        if (publicEncountered && expression.getExpressionString().equals("public")) return false;
         if (expression.getExpressionString().equals("public")) publicEncountered = true;
         return true;
     }

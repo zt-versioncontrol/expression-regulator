@@ -24,7 +24,7 @@ public class TypeSelectorValidator extends BasicExpressionValidator {
 
         if (scopes.isEmpty()) return true;
         if (scopes.size() > 1) return false;
-        if (scopes.get(0).second != expressionString.length()) return false;
+        if (scopes.get(0).second != expressionString.length()-1) return false;
 
         return true;
     }

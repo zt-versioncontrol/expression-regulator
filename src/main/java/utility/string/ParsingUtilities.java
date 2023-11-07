@@ -87,7 +87,7 @@ public class ParsingUtilities {
             nonIntersectedScopes.add(scopeInCheck);
 
             //if the scope is unbound all following scopes are discarded
-            if ((scopeInCheck.second == -1) || (i == independentScopes.size()-1)) return independentScopes;
+            if ((scopeInCheck.second == -1) || (i == independentScopes.size()-1)) return nonIntersectedScopes;
             //if current scope does not intersect with next scope restart the loop,
             if (scopeInCheck.second <  independentScopes.get(i+1).first) continue;
 
