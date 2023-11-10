@@ -27,7 +27,8 @@ public class EnumConstantsExtractor extends ExpressionArrayExtractor {
 
         int firstSemiclon = expression.indexOf(";");
 
-        expression = expression.substring(0, firstSemiclon == -1 ? expression.length() : firstSemiclon);
+        expression = expression.substring(0, firstSemiclon == -1 ? expression.length() : firstSemiclon).trim();
+        if (expression.isEmpty()) return List.of();
 
         return Arrays.stream(expression.split(",")).map(String::trim).toList();
     }

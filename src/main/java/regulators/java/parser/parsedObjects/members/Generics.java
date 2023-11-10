@@ -9,4 +9,8 @@ public class Generics {
 
     @StringConstructedArray(extractor = GenericTypesExtractor.class, of = GenericType.class)
     private ArrayList<GenericType> genericTypes;
+
+    public ArrayList<GenericType> getGenericTypes() {
+        return genericTypes;
+    }
 }

@@ -22,7 +22,7 @@ class GenericsValidatorTest {
 
         assertFalse(validator.validate(e2));
         assertFalse(validator.validate(e3));
-        assertFalse(validator.validate(e4));
+        assertTrue(validator.validate(e4));
         assertFalse(validator.validate(e5));
     }
 }

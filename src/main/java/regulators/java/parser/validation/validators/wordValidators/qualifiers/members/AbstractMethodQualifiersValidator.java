@@ -3,7 +3,7 @@ package regulators.java.parser.validation.validators.wordValidators.qualifiers.m
 import base.components.expression.validation.BasicExpressionValidator;
 import base.expressions.Expression;
 import regulators.java.parser.extractors.attributes.MethodQualifiersExtractor;
-import regulators.java.parser.validation.selectors.simple.ByConcreteTypeSelectos;
+import regulators.java.parser.validation.selectors.simple.ByConcreteTypeSelectors;
 
 import java.util.List;
 import java.util.Set;
@@ -13,7 +13,7 @@ public class AbstractMethodQualifiersValidator extends BasicExpressionValidator 
     Set<String> keywords = Set.of("public", "protected", "abstract");
 
     protected AbstractMethodQualifiersValidator() {
-        super(ByConcreteTypeSelectos.AbstractMethodSelector.class);
+        super(ByConcreteTypeSelectors.AbstractMethodSelector.class);
     }
 
     @Override

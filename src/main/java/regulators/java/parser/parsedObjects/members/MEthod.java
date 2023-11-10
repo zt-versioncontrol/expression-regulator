@@ -38,4 +38,32 @@ public class MEthod implements ClassMember, InterfaceMember, EnumMember {
 
     @StringConstructedArray(extractor = StatementsExtractor.class, of = Statement.class)
     private ArrayList<Statement> statements;
+
+    public ArrayList<String> getQualifiers() {
+        return qualifiers;
+    }
+
+    public Generics getGenerics() {
+        return generics;
+    }
+
+    public TypeSelector getType() {
+        return type;
+    }
+
+    public String getIdentifier() {
+        return identifier;
+    }
+
+    public ArrayList<MethodParameter> getParameters() {
+        return parameters;
+    }
+
+    public ArrayList<String> getThrownExpections() {
+        return thrownExpections;
+    }
+
+    public ArrayList<Statement> getStatements() {
+        return statements;
+    }
 }

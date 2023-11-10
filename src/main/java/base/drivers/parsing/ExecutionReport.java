@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 public class ExecutionReport {
-    private final Exception thrownException;
+    public final Exception thrownException;
 
     public final String rootString;
     public  final Expression expressionTree;
@@ -38,10 +38,6 @@ public class ExecutionReport {
         this.selectedExpressions = selectedExpressions;
     }
 
-
-    public Exception getThrownException() {
-        return thrownException;
-    }
 
     public static class Invalidation{
         public final Expression invalidExpression;

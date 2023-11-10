@@ -4,7 +4,7 @@ import base.components.expression.validation.BasicExpressionSelector;
 import base.expressions.Expression;
 import base.expressions.validation.selectors.simple.ByExtractor;
 import regulators.java.parser.extractors.attributes.*;
-import regulators.java.parser.validation.selectors.simple.ByConcreteTypeSelectos;
+import regulators.java.parser.validation.selectors.simple.ByConcreteTypeSelectors;
 
 import java.util.List;
 
@@ -20,7 +20,7 @@ public class InterfaceMemberQualifiersSelector implements BasicExpressionSelecto
 
     @Override
     public boolean isSelected(Expression expression) {
-        ByConcreteTypeSelectos.InterfaceSelector interfaceSelector = new ByConcreteTypeSelectos.InterfaceSelector();
+        ByConcreteTypeSelectors.InterfaceSelector interfaceSelector = new ByConcreteTypeSelectors.InterfaceSelector();
 
         for (BasicExpressionSelector subSelector : subSelectors) {
             if (subSelector.isSelected(expression)){

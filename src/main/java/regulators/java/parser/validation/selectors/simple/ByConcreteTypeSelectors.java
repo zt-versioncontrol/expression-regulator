@@ -1,5 +1,6 @@
 package regulators.java.parser.validation.selectors.simple;
 
+import base.components.expression.validation.BasicExpressionSelector;
 import base.expressions.validation.selectors.simple.ConcreteTypeSelector;
 import regulators.java.parser.parsedObjects.members.*;
 import regulators.java.parser.parsedObjects.types.CLass;
@@ -7,17 +8,13 @@ import regulators.java.parser.parsedObjects.types.ENum;
 import regulators.java.parser.parsedObjects.types.INterface;
 import regulators.java.parser.parsedObjects.types.InvalidTypeDefinition;
 
-public class ByConcreteTypeSelectos {
+import java.util.Set;
+
+public class ByConcreteTypeSelectors {
 
     public static class ClassSelector extends ConcreteTypeSelector {
         public ClassSelector() {
             super(CLass.class);
-        }
-    }
-
-    public static class FieldSelector extends ConcreteTypeSelector {
-        public FieldSelector() {
-            super(FIeld.class);
         }
     }
 
@@ -66,6 +63,22 @@ public class ByConcreteTypeSelectos {
     public static class StaticBlockSelector extends ConcreteTypeSelector {
         public StaticBlockSelector() {
             super(StaticBlock.class);
+        }
+    }
+
+    public static class _Initializer {
+        public Set<BasicExpressionSelector> initialize(){
+            return Set.of(
+                    new ClassSelector(),
+                    new MethodSelector(),
+                    new EnumSelector(),
+                    new InterfaceSelector(),
+                    new AbstractMethodSelector(),
+                    new InitializationBlockSelector(),
+                    new InvalidTypeSelector(),
+                    new EmptyMemberSelector(),
+                    new StaticBlockSelector()
+            );
         }
     }
 }

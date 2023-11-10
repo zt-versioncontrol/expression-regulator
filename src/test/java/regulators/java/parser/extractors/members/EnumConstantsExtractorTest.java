@@ -15,6 +15,9 @@ class EnumConstantsExtractorTest {
         assertIterableEquals(List.of("A", "B", "C"), extractor.extractArrayFromExpression("enum en{A,B,\tC;}"));
         assertIterableEquals(List.of("A", "B", "C"), extractor.extractArrayFromExpression("enum en{A,B,   C}"));
         assertIterableEquals(List.of("A", "A1"), extractor.extractArrayFromExpression("private enum en{A, A1; string s; class cls{}}"));
+        assertIterableEquals(List.of(), extractor.extractArrayFromExpression("private enum en{  }"));
+        assertIterableEquals(List.of(), extractor.extractArrayFromExpression("private enum en{\n\t}"));
+        assertIterableEquals(List.of(), extractor.extractArrayFromExpression("private enum en{;}"));
 
         assertIterableEquals(List.of(""), extractor.extractArrayFromExpression(""));
         assertIterableEquals(List.of("A", "B"), extractor.extractArrayFromExpression("{A, B}"));

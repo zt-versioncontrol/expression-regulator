@@ -14,6 +14,7 @@ public class SuperClassValidator extends BasicExpressionValidator {
     public boolean validate(Expression expression) {
         String expressionString = expression.getExpressionString();
 
+        if (expression.getExpressionString().isEmpty()) return true;
         return expressionString.startsWith("extends ") && !expressionString.substring("extends ".length()).isBlank();
     }
 }

@@ -18,6 +18,7 @@ class ExtendedInterfacesValidatorTest {
         Expression e5 = new Expression("extendsextends", null);
         Expression e6 = new Expression("extendsa", null);
         Expression e7 = new Expression("extends a<ewqe>Eqwep", null);
+        Expression e8 = new Expression("", null);
 
 
 
@@ -28,5 +29,6 @@ class ExtendedInterfacesValidatorTest {
         assertFalse(validator.validate(e5));
         assertFalse(validator.validate(e6));
         assertTrue(validator.validate(e7));
+        assertTrue(validator.validate(e8));
     }
 }

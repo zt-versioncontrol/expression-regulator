@@ -34,4 +34,24 @@ public class INterface implements TypeDefinition, ClassMember, InterfaceMember, 
 
     @StringDerivedArray(extractor = ClassMembersExtractor.class, provider = InterfaceMemberProvider.class)
     private ArrayList<InterfaceMember> members;
+
+    public String getIdentifier() {
+        return identifier;
+    }
+
+    public ArrayList<String> getQualifiers() {
+        return qualifiers;
+    }
+
+    public Generics getGenerics() {
+        return generics;
+    }
+
+    public ExtendedInterfaces getExtendedInterfaces() {
+        return extendedInterfaces;
+    }
+
+    public ArrayList<InterfaceMember> getMembers() {
+        return members;
+    }
 }

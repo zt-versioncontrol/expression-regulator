@@ -12,6 +12,6 @@ public class StatementValidator extends BasicExpressionValidator {
 
     @Override
     public boolean validate(Expression expression) {
-        return expression.getExpressionString().endsWith(";");
+        return expression.getExpressionString().endsWith(";") || expression.getExpressionString().endsWith("}");
     }
 }

@@ -20,11 +20,11 @@ public class ParsingDriver<T> {
 
     private ExpressionToObjectParser parser;
 
-    protected ParsingDriver(ExpressionComponentsInitializer componentsInitializer){
+    public ParsingDriver(ExpressionComponentsInitializer componentsInitializer){
         this(componentsInitializer, null);
     }
 
-    protected ParsingDriver(ExpressionComponentsInitializer componentsInitializer, ReportingService reportingService){
+    public ParsingDriver(ExpressionComponentsInitializer componentsInitializer, ReportingService reportingService){
         this.reportingService = reportingService;
         this.componentsInitializer = componentsInitializer;
 

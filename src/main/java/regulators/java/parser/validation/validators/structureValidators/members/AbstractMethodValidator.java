@@ -2,7 +2,7 @@ package regulators.java.parser.validation.validators.structureValidators.members
 
 import base.components.expression.validation.BasicExpressionValidator;
 import base.expressions.Expression;
-import regulators.java.parser.validation.selectors.simple.ByConcreteTypeSelectos;
+import regulators.java.parser.validation.selectors.simple.ByConcreteTypeSelectors;
 import utility.string.ParsingUtilities;
 import utility.structure.Pair;
 
@@ -11,7 +11,7 @@ import java.util.List;
 public class AbstractMethodValidator extends BasicExpressionValidator {
 
     protected AbstractMethodValidator() {
-        super(ByConcreteTypeSelectos.AbstractMethodSelector.class);
+        super(ByConcreteTypeSelectors.AbstractMethodSelector.class);
     }
 
     @Override

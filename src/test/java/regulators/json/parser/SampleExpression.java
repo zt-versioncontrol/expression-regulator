@@ -1,6 +1,6 @@
 package regulators.json.parser;
 
-public class SampleData {
+public class SampleExpression {
     public static final String INDENTED_JSON = "{\n" +
             "  \"statusCode\": \"Success\",\n" +
             "  \"status\": \"Success\",\n" +

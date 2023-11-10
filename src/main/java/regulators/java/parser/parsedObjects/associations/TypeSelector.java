@@ -18,4 +18,12 @@ public class TypeSelector {
 
     @StringConstructedArray(extractor = GenericTypesSelectorsExtractor.class, of = TypeSelector.class)
     private ArrayList<TypeSelector> genericTypesSelectors;
+
+    public String getType() {
+        return type;
+    }
+
+    public ArrayList<TypeSelector> getGenericTypesSelectors() {
+        return genericTypesSelectors;
+    }
 }

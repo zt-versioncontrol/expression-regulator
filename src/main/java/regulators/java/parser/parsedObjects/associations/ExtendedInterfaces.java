@@ -9,4 +9,8 @@ public class ExtendedInterfaces {
 
     @StringConstructedArray(extractor = ExtendedInterfaceTypesExtractor.class, of = TypeSelector.class)
     private ArrayList<TypeSelector> interfaceSelectors;
+
+    public ArrayList<TypeSelector> getInterfaceSelectors() {
+        return interfaceSelectors;
+    }
 }

@@ -2,7 +2,7 @@ package regulators.java.parser.validation.validators.structureValidators.types;
 
 import base.components.expression.validation.BasicExpressionValidator;
 import base.expressions.Expression;
-import regulators.java.parser.validation.selectors.simple.ByConcreteTypeSelectos;
+import regulators.java.parser.validation.selectors.simple.ByConcreteTypeSelectors;
 import utility.string.ManipulationUtilities;
 import utility.string.ParsingUtilities;
 import utility.structure.Pair;
@@ -12,7 +12,7 @@ import java.util.List;
 public class EnumValidator extends BasicExpressionValidator {
 
     protected EnumValidator() {
-        super(ByConcreteTypeSelectos.EnumSelector.class);
+        super(ByConcreteTypeSelectors.EnumSelector.class);
     }
 
     @Override

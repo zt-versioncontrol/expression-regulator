@@ -12,6 +12,7 @@ public class FieldInitializerValidator extends BasicExpressionValidator {
 
     @Override
     public boolean validate(Expression expression) {
+        if (expression.getExpressionString().isBlank()) return true;
         return expression.getExpressionString().endsWith(";");
     }
 }

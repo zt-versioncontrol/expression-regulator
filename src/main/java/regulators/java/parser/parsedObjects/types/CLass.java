@@ -38,4 +38,28 @@ public class CLass implements TypeDefinition, ClassMember, InterfaceMember, Enum
     @AbstractType
     @StringDerivedArray(extractor = ClassMembersExtractor.class, provider = ClassMemberProvider.class)
     private ArrayList<ClassMember> members;
+
+    public String getIdentifier() {
+        return identifier;
+    }
+
+    public ArrayList<String> getQualifiers() {
+        return qualifiers;
+    }
+
+    public Generics getGenerics() {
+        return generics;
+    }
+
+    public SuperClass getSuperCLass() {
+        return superCLass;
+    }
+
+    public ImplementedInterfaces getImplementedInterfaces() {
+        return implementedInterfaces;
+    }
+
+    public ArrayList<ClassMember> getMembers() {
+        return members;
+    }
 }

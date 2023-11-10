@@ -18,6 +18,7 @@ class ImplementedInterfacesValidatorTest {
         Expression e5 = new Expression("implementsimplements", null);
         Expression e6 = new Expression("implementsa", null);
         Expression e7 = new Expression("implements a<ewqe>Eqwep", null);
+        Expression e8 = new Expression("", null);
 
 
 
@@ -28,5 +29,6 @@ class ImplementedInterfacesValidatorTest {
         assertFalse(validator.validate(e5));
         assertFalse(validator.validate(e6));
         assertTrue(validator.validate(e7));
+        assertTrue(validator.validate(e8));
     }
 }

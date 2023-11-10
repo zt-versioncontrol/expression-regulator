@@ -2,7 +2,8 @@ package regulators.java.parser.validation.validators.wordValidators.qualifiers.m
 
 import base.components.expression.validation.BasicExpressionValidator;
 import base.expressions.Expression;
-import regulators.java.parser.validation.selectors.simple.ByConcreteTypeSelectos;
+import regulators.java.parser.validation.selectors.simple.ByConcreteTypeSelectors;
+import regulators.java.parser.validation.selectors.simple.ByExtractorSelectors;
 
 import java.util.Set;
 
@@ -11,7 +12,7 @@ public class FieldQualifiersValidator extends BasicExpressionValidator{
     Set<String> keywords = Set.of("public", "private", "protected", "static", "final");
 
     protected FieldQualifiersValidator() {
-        super(ByConcreteTypeSelectos.FieldSelector.class);
+        super(ByExtractorSelectors.FieldQualifiersSelector.class);
     }
 
     @Override

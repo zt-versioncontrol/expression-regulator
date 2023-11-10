@@ -15,6 +15,7 @@ public class GenericsValidator extends BasicExpressionValidator {
     @Override
     public boolean validate(Expression expression) {
         String expressionString = expression.getExpressionString();
+        if (expressionString.isEmpty()) return true;
         return expressionString.startsWith("<") && expressionString.endsWith(">") &&
                 ManipulationUtilities.foldCharacters(expressionString, Character::isWhitespace, "").length() > 2;
     }

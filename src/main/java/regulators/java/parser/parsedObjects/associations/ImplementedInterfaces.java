@@ -8,4 +8,8 @@ import java.util.ArrayList;
 public class ImplementedInterfaces {
     @StringConstructedArray(extractor = ImplementedInterfaceTypesExtractor.class, of = TypeSelector.class)
     private ArrayList<TypeSelector> interfaceSelectors;
+
+    public ArrayList<TypeSelector> getInterfaceSelectors() {
+        return interfaceSelectors;
+    }
 }

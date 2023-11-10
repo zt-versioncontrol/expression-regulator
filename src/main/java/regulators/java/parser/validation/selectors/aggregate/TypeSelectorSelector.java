@@ -16,7 +16,7 @@ public class TypeSelectorSelector implements BasicExpressionSelector {
             new ByExtractor(GenericTypesSelectorsExtractor.class){},
             new ByExtractor(MethodTypeExtractor.class){},
             new ByExtractor(FieldTypeExtractor.class){},
-            new ByExtractor(TypeBoundExtractor.class){},
+            new ByExtractor.WithMatcher(TypeBoundExtractor.class, string -> !string.isEmpty()){},
             new ByExtractor(ParameterTypeExtractor.class){}
     );
 

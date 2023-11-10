@@ -12,7 +12,7 @@ import regulators.java.parser.providers.TypeDefinitionProvider;
 
 import java.util.ArrayList;
 
-public class File {
+public class JavaFile {
     @StringConstructed(extractor = PackageExtractor.class)
     private String pkg;
 
@@ -21,6 +21,17 @@ public class File {
 
     @AbstractType
     @StringDerivedArray(extractor = TypeDefinitionsFromFileExtractor.class, provider = TypeDefinitionProvider.class)
-    private ArrayList<TypeDefinition> classes;
+    private ArrayList<TypeDefinition> typeDefinitions;
 
+    public String getPkg() {
+        return pkg;
+    }
+
+    public ArrayList<String> getImports() {
+        return imports;
+    }
+
+    public ArrayList<TypeDefinition> getTypeDefinitions() {
+        return typeDefinitions;
+    }
 }

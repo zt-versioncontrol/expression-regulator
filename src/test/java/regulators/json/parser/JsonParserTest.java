@@ -108,8 +108,8 @@ class JsonParserTest {
 
     @Test
     void complexCase() {
-        runColmplexCase(SampleData.INDENTED_JSON);
-        runColmplexCase(SampleData.MINIFIED_JSON);
+        runColmplexCase(SampleExpression.INDENTED_JSON);
+        runColmplexCase(SampleExpression.MINIFIED_JSON);
     }
 
     void runColmplexCase(String jsonString){
@@ -142,8 +142,8 @@ class JsonParserTest {
 
     @Test
     void erroneousComplexCase() {
-        runErroneousComplexCase(SampleErroneousData.INDENTED_JSON);
-        runErroneousComplexCase(SampleErroneousData.MINIFIED_JSON);
+        runErroneousComplexCase(SampleErroneousExpression.INDENTED_JSON);
+        runErroneousComplexCase(SampleErroneousExpression.MINIFIED_JSON);
     }
 
     void runErroneousComplexCase(String jsonString){

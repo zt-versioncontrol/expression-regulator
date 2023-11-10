@@ -19,4 +19,11 @@ public class GenericType {
     @StringDerived(extractor = TypeBoundExtractor.class, provider = TypeBoundProvider.class)
     private TypeSelector typeBound;
 
+    public String getIdentifier() {
+        return identifier;
+    }
+
+    public TypeSelector getTypeBound() {
+        return typeBound;
+    }
 }

@@ -14,4 +14,12 @@ public class MethodParameter {
 
     @StringConstructed(extractor = ParameterTypeExtractor.class)
     private TypeSelector type;
+
+    public String getIdentifier() {
+        return identifier;
+    }
+
+    public TypeSelector getType() {
+        return type;
+    }
 }

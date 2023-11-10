@@ -34,4 +34,24 @@ public class ENum implements TypeDefinition, ClassMember, InterfaceMember, EnumM
 
     @StringDerivedArray(extractor = EnumMembersExtractor.class, provider = EnumMemberProvider.class)
     private ArrayList<EnumMember> members;
+
+    public String getIdentifier() {
+        return identifier;
+    }
+
+    public ArrayList<String> getQualifiers() {
+        return qualifiers;
+    }
+
+    public ImplementedInterfaces getImplementedInterfaces() {
+        return implementedInterfaces;
+    }
+
+    public ArrayList<String> getConstantIdentifiers() {
+        return constantIdentifiers;
+    }
+
+    public ArrayList<EnumMember> getMembers() {
+        return members;
+    }
 }

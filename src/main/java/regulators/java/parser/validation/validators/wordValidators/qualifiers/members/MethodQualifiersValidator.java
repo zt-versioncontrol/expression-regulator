@@ -2,8 +2,10 @@ package regulators.java.parser.validation.validators.wordValidators.qualifiers.m
 
 import base.components.expression.validation.BasicExpressionValidator;
 import base.expressions.Expression;
-import regulators.java.parser.validation.selectors.simple.ByConcreteTypeSelectos;
+import regulators.java.parser.extractors.attributes.MethodQualifiersExtractor;
+import regulators.java.parser.validation.selectors.simple.ByConcreteTypeSelectors;
 
+import java.util.List;
 import java.util.Set;
 
 public class MethodQualifiersValidator extends BasicExpressionValidator {
@@ -11,11 +13,18 @@ public class MethodQualifiersValidator extends BasicExpressionValidator {
     private final Set<String> keywords = Set.of("public", "private", "protected", "final", "static");
 
     protected MethodQualifiersValidator() {
-        super(ByConcreteTypeSelectos.MethodSelector.class);
+        super(ByConcreteTypeSelectors.MethodSelector.class);
     }
 
     @Override
     public boolean validate(Expression expression) {
-        return keywords.contains(expression.getExpressionString());
+        List<Expression> qualifiers = expression.getDerivedExpressions().
+                stream().filter(derived -> derived.getExtractorClass().equals(MethodQualifiersExtractor.class)).toList();
+
+        for (Expression qualifier : qualifiers) {
+            if (!keywords.contains(qualifier.getExpressionString())) return false;
+        }
+
+        return true;
     }
 }

@@ -2,7 +2,7 @@ package regulators.java.parser.validation.validators.structureValidators.types;
 
 import base.components.expression.validation.BasicExpressionValidator;
 import base.expressions.Expression;
-import regulators.java.parser.validation.selectors.simple.ByConcreteTypeSelectos;
+import regulators.java.parser.validation.selectors.simple.ByConcreteTypeSelectors;
 import utility.string.ManipulationUtilities;
 import utility.string.ParsingUtilities;
 import utility.structure.Pair;
@@ -12,7 +12,7 @@ import java.util.List;
 public class InterfaceValidator extends BasicExpressionValidator {
 
     protected InterfaceValidator() {
-        super(ByConcreteTypeSelectos.InterfaceSelector.class);
+        super(ByConcreteTypeSelectors.InterfaceSelector.class);
     }
 
     @Override

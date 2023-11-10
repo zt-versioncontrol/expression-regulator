@@ -26,4 +26,19 @@ public class FIeld implements ClassMember, InterfaceMember, EnumMember {
     @StringDerived(extractor = FieldInitializerExtractor.class, provider = FieldInitializerProvider.class)
     private String initializer;
 
+    public ArrayList<String> getQualifiers() {
+        return qualifiers;
+    }
+
+    public TypeSelector getType() {
+        return type;
+    }
+
+    public String getIdentifier() {
+        return identifier;
+    }
+
+    public String getInitializer() {
+        return initializer;
+    }
 }

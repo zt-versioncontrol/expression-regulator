@@ -15,6 +15,7 @@ public class ExtendedInterfacesValidator extends BasicExpressionValidator {
     public boolean validate(Expression expression) {
         String expressionString = expression.getExpressionString();
 
+        if (expressionString.isEmpty()) return true;
         return expressionString.startsWith("extends ") && !expressionString.substring("extends ".length()).isBlank();
     }
 }
