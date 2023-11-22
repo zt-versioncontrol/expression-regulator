@@ -116,7 +116,7 @@ class ParsingUtilitiesTest {
         List<Integer> unsorted = List.of( 14, 5, 3, 10, 2, 19);
         List<Integer> adjacent = List.of(0, 1, 2, 3, 4, 5);
         List<Integer> empty = List.of();
-        List<Integer> edgges = List.of(0, 4, 13, 31);
+        List<Integer> edges = List.of(0, 4, 13, 31);
         List<Integer> repeated = List.of(3,3,3,3, 10);
         List<Integer> negative = List.of(-5, 3);
         List<Integer> outOfRange = List.of(5, 58, 9);
@@ -126,7 +126,7 @@ class ParsingUtilitiesTest {
         assertIterableEquals(List.of("12", "", "5", "7890", "bcd", "f123", "567890abcdef"), indexSplit(s, unsorted));
         assertIterableEquals(List.of("", "", "", "", "", "", "7890abcdef1234567890abcdef"), indexSplit(s, adjacent));
         assertIterableEquals(List.of("1234567890abcdef1234567890abcdef"), indexSplit(s, empty));
-        assertIterableEquals(List.of("", "234", "67890abc", "ef1234567890abcde", ""), indexSplit(s, edgges));
+        assertIterableEquals(List.of("", "234", "67890abc", "ef1234567890abcde", ""), indexSplit(s, edges));
         assertIterableEquals(List.of("123", "", "", "", "567890", "bcdef1234567890abcdef"), indexSplit(s, repeated));
         assertThrows(RuntimeException.class, () -> indexSplit(s, negative));
         assertThrows(RuntimeException.class, () -> indexSplit(s, outOfRange));

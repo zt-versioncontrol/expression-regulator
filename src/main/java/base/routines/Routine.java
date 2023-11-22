@@ -1,9 +1,6 @@
 package base.routines;
 
-public interface Routine<CONTEXT> {
+public interface Routine<CONTEXT extends RoutineContext> {
 
     void execute(CONTEXT context);
-
-    default void before(){}
-    default void after(){}
 }

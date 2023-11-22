@@ -120,6 +120,8 @@ public class ParsingUtilities {
 
     //split a string according to given indices, in ascending order
     //does not include characters at split indices
+    //if split point is the last of first character then an empty string is added tp splits
+    //if a split point was repeated then empty strings are added to splits
     public static List<String> indexSplit(String string, List<Integer> indices){
         if (indices.isEmpty()) return List.of(string);
 
