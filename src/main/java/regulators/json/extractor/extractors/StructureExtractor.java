@@ -8,9 +8,9 @@ public class StructureExtractor extends ExpressionExtractor {
         if (!expression.endsWith(";")) return "";
         expression = expression.substring(0, expression.length()-1);
 
-        int indicator = expression.indexOf("<<");
+        int indicator = expression.indexOf(">");
         if (indicator == -1) return "";
 
-        return expression.substring(indicator + "<<".length()).trim();
+        return expression.substring(indicator + ">".length()).trim();
     }
 }

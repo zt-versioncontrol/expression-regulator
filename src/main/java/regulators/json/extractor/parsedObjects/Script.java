@@ -3,6 +3,7 @@ package regulators.json.extractor.parsedObjects;
 import base.parsing.AbstractType;
 import base.parsing.StringDerivedArray;
 import regulators.json.extractor.extractors.StatementsExtractor;
+import regulators.json.extractor.parsedObjects.statement.Statement;
 import regulators.json.extractor.providers.StatementProvider;
 
 import java.util.ArrayList;

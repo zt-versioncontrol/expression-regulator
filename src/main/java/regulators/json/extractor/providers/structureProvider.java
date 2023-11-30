@@ -1,10 +1,10 @@
 package regulators.json.extractor.providers;
 
 import base.components.expression.parsing.InstanceProvider;
-import regulators.json.extractor.parsedObjects.Array;
-import regulators.json.extractor.parsedObjects.NamedArrays;
-import regulators.json.extractor.parsedObjects.Single;
-import regulators.json.extractor.parsedObjects.Structure;
+import regulators.json.extractor.parsedObjects.structure.Array;
+import regulators.json.extractor.parsedObjects.structure.NamedArrays;
+import regulators.json.extractor.parsedObjects.structure.Single;
+import regulators.json.extractor.parsedObjects.structure.Structure;
 
 public class structureProvider implements InstanceProvider {
     @Override

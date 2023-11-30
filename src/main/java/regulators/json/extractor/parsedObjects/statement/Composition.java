@@ -1,4 +1,4 @@
-package regulators.json.extractor.parsedObjects;
+package regulators.json.extractor.parsedObjects.statement;
 
 import base.parsing.StringConstructed;
 import regulators.json.extractor.extractors.CompositionBaseExtractor;

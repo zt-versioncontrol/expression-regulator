@@ -1,4 +1,4 @@
-package regulators.json.extractor.parsedObjects;
+package regulators.json.extractor.parsedObjects.bits;
 
 import base.parsing.StringDerived;
 import regulators.json.extractor.extractors.RangeEndExtractor;

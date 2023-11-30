@@ -1,7 +1,7 @@
 package regulators.json.extractor.providers;
 
 import base.components.expression.parsing.InstanceProvider;
-import regulators.json.extractor.parsedObjects.Path;
+import regulators.json.extractor.parsedObjects.bits.Path;
 
 public class PathProvider implements InstanceProvider {
     @Override
